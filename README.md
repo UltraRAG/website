@@ -1,16 +1,9 @@
-# ur_website
-
-## Create website
-
-```bash
-npx create-docusaurus@latest website classic
+```bash 
+npm config set registry https://registry.npmmirror.com
 ```
 
-
-## use 
-
 ```bash 
-cd website
+npm install
 ```
 
 ```bash
