@@ -1,7 +1,13 @@
 /* Hero 区域 - 苹果风格 */
 .heroSection {
   background-color: #f5f5f7; /* 苹果常用的浅灰底色 */
-  padding: 8rem 0 6rem;
+  background-image: url('/img/home/ur3.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* 让背景延伸到导航栏后面：负margin + 额外padding补偿 */
+  margin-top: -48px;
+  padding: calc(8rem + 48px) 0 6rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -21,18 +27,20 @@
   font-weight: 600;
   letter-spacing: -0.005em;
   font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #1d1d1f;
-  margin-bottom: 6px;
+  color: #ffffff; /* 白色字体 */
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* 轻微阴影增加可读性 */
 }
 
 .heroSubtitle {
   font-size: 28px;
-  line-height: 1.10722;
+  line-height: 1.35;
   font-weight: 400;
   letter-spacing: .004em;
   font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #1d1d1f;
+  color: rgba(255, 255, 255, 0.9); /* 白色字体，略透明 */
   margin-bottom: 40px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
 .heroButtons {
@@ -62,25 +70,31 @@
   transform: scale(1.02);
 }
 
-/* 蓝色按钮 (Github) */
+/* 半透明白色按钮 (Github) - 与其他按钮风格统一 */
 .btnBlue {
-  background-color: #0071e3;
-  color: #fff !important; /* 强制覆盖链接颜色 */
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .btnBlue:hover {
-  background-color: #0077ed;
-  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* 灰色按钮 (了解详情) */
+/* 半透明白色按钮 (了解详情) - 适配深色背景 */
 .btnGray {
-  background-color: #e8e8ed;
-  color: #1d1d1f !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .btnGray:hover {
-  background-color: #d2d2d7;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Github 图标 */
@@ -90,10 +104,17 @@
   fill: currentColor;
 }
 
+/* 播放/试玩 图标 */
+.playIcon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
 /* 特效总览 Carousel */
 .carouselSection {
   padding: 6rem 0;
-  background: #fff;
+  background: #f5f5f7; /* Apple 浅灰背景 */
   overflow: hidden;
   text-align: center;
 }
@@ -122,7 +143,7 @@
 .carouselTrack {
   display: flex;
   gap: 30px;
-  transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  /* transition 由 JS 控制，实现无限循环 */
   will-change: transform;
 }
 
@@ -130,28 +151,29 @@
   flex: 0 0 360px; /* 固定宽度 */
   background: #fff;
   border-radius: 18px;
-  box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+  /* Apple 风格的精致阴影 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   text-align: left;
   height: 480px;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08); /* 更明显的细边框 */
 }
 
 .carouselCard:hover {
-  transform: scale(1.02);
-  box-shadow: 4px 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-4px); /* 轻微上浮而非放大 */
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1), 0 20px 40px -10px rgba(0, 0, 0, 0.08);
 }
 
 .cardImage {
   height: 240px;
-  background-color: #f5f5f7;
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f2 100%); /* 微渐变背景 */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  color: #1d1d1f; /* 深灰色图标 */
 }
 
 .cardContent {
@@ -180,24 +202,28 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(210, 210, 215, 0.64);
-  backdrop-filter: blur(20px);
-  border: none;
+  background: rgba(255, 255, 255, 0.8); /* 白色毛玻璃 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   cursor: pointer;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 20px;
   color: #1d1d1f;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .carouselNavButton:hover {
-  background: rgba(210, 210, 215, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .carouselNavButton:disabled {
@@ -211,6 +237,10 @@
 /* 快速开始 Quick Start */
 .quickStartSection {
   background-color: #f5f5f7; /* 改为浅灰底 */
+  background-image: url('/img/home/quick.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #1d1d1f; /* 深色文字 */
   padding: 8rem 0;
 }
@@ -240,14 +270,30 @@
 }
 
 .codeBlock {
-  background: #fff; /* 浅色背景 */
+  position: relative;
+  background: #1e1e1e; /* VS Code 深色背景 */
   border-radius: 12px;
-  padding: 24px;
+  padding: 36px 24px 24px; /* 顶部留出按钮空间 */
   font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
   font-size: 14px;
-  color: #1d1d1f; /* 深色代码 */
+  color: #d4d4d4; /* VS Code 前景色 */
   box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* 柔和阴影 */
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* macOS 风格的红黄绿按钮 */
+.codeBlock::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56; /* 红 */
+  box-shadow:
+    18px 0 0 #ffbd2e, /* 黄 */
+    36px 0 0 #27c93f; /* 绿 */
 }
 
 .codeLine {
@@ -255,8 +301,8 @@
   margin-bottom: 8px;
 }
 
-.comment { color: #86868b; }
-.command { color: #0071e3; font-weight: 600; }
+.comment { color: #6a9955; }
+.command { color: #569cd6; font-weight: 600; }
 
 .tutorialBtn {
   display: inline-block;

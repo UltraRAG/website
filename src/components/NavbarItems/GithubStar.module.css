@@ -4,7 +4,7 @@
   border: none;
   border-radius: 0;
   padding: 0;
-  color: #111827; /* Dark text */
+  color: rgba(255, 255, 255, 0.85); /* Light text for dark navbar */
   text-decoration: none;
   transition: all 0.2s ease;
   background-color: transparent;
@@ -14,9 +14,9 @@
 .githubButton:hover {
   transform: none;
   text-decoration: none;
-  color: #111827;
+  color: #ffffff;
   background-color: transparent;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .iconWrapper {

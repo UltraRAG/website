@@ -18,29 +18,47 @@
   --ifm-font-color-base: #1f2937;
 }
 
-/* 导航栏样式微调：更通透 */
+/* 因为导航栏是 fixed 定位，Hero区域需要延伸到顶部 */
+.main-wrapper {
+  padding-top: 0;
+}
+
+/* 导航栏样式微调：沉浸式毛玻璃效果 (Apple 风格) */
 .navbar {
+  /* 固定定位，让导航栏浮在内容之上 */
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  
+  /* 关键：半透明背景 + 模糊滤镜 = 毛玻璃效果 */
+  background-color: rgba(0, 0, 0, 0.4); /* 40% 透明黑色 */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
   box-shadow: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: #ffffff; /* Reverted to white */
-  backdrop-filter: saturate(180%) blur(20px); /* Keep glassmorphism if desired, or remove. Keeping for modern feel but white base */
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  padding: 0; /* Remove default padding, let inner handle it */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
   height: 48px;
   min-height: 48px;
 }
 
 .navbar__title {
-  font-weight: 600; /* Slightly lighter weight */
+  font-weight: 600;
   font-size: 1.2rem;
-  color: #1d1d1f; /* Apple's near-black */
+  color: rgba(255, 255, 255, 0.92); /* 浅色文字适配深色毛玻璃背景 */
 }
 
-/* Ensure links are high contrast */
+/* 导航链接 - 浅色适配毛玻璃 */
 .navbar__item {
-  color: #1d1d1f;
-  font-size: 12px; /* Smaller, cleaner font */
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
   font-weight: 400;
+}
+
+.navbar__item:hover {
+  color: #ffffff;
 }
 
 /* 导航栏 Logo 放大 */
@@ -88,3 +106,14 @@
 
 /* --- GitHub 图标完美复刻 --- */
 /* The .header-github-link styles are removed as we use a custom React component now */
+
+/* Footer - Apple 风格浅灰文字 */
+.footer {
+  background-color: #f5f5f7;
+  color: #9ca3af;
+}
+
+.footer__copyright {
+  color: #9ca3af;
+  font-size: 12px;
+}

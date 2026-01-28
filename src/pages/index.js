@@ -1,9 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
+
+// --- 线性 SVG 图标组件 (Lucide 风格) ---
+
+const IconPipeline = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="14" width="7" height="7" rx="1"/>
+    <rect x="3" y="14" width="7" height="7" rx="1"/>
+    <path d="M10 6.5h4M17.5 10v4M10 17.5h4M6.5 10v4"/>
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8"/>
+    <path d="m21 21-4.35-4.35"/>
+    <path d="M11 8v6M8 11h6"/>
+  </svg>
+);
+
+const IconLightbulb = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+    <path d="M9 18h6"/>
+    <path d="M10 22h4"/>
+  </svg>
+);
+
+const IconGraph = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <circle cx="19" cy="5" r="2"/>
+    <circle cx="5" cy="5" r="2"/>
+    <circle cx="19" cy="19" r="2"/>
+    <circle cx="5" cy="19" r="2"/>
+    <path d="M14.5 10 17 7M9.5 10 7 7M14.5 14l2.5 3M9.5 14 7 17"/>
+  </svg>
+);
+
+const IconRobot = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="11" width="18" height="10" rx="2"/>
+    <circle cx="12" cy="5" r="2"/>
+    <path d="M12 7v4"/>
+    <path d="M8 16h.01M16 16h.01"/>
+    <path d="M9 20v1M15 20v1"/>
+  </svg>
+);
 
 // --- 数据 ---
 
@@ -12,27 +61,27 @@ const FeaturesList = [
   {
     title: 'Pipeline Builder',
     desc: '自动化处理繁琐界面封装。只需专注于逻辑编排，静态代码即刻变身可交互的演示系统。',
-    icon: '🧩',
+    Icon: IconPipeline,
   },
   {
     title: 'White-box Reasoning',
     desc: '拒绝黑盒。实时呈现复杂长链条任务中的每一次循环、分支与决策细节。',
-    icon: '🔍',
+    Icon: IconSearch,
   },
   {
     title: 'AI Copilot',
     desc: '内嵌懂框架的 AI 助手，通过自然语言交互辅助生成 Pipeline 配置与优化 Prompt。',
-    icon: '💡',
+    Icon: IconLightbulb,
   },
   {
     title: 'Knowledge Graph',
     desc: '深度整合知识图谱，提升检索准确率与推理可解释性。',
-    icon: '🕸️',
+    Icon: IconGraph,
   },
   {
     title: 'Multi-Agent',
     desc: '原生支持多智能体协作，复杂任务自动拆解与分发。',
-    icon: '🤖',
+    Icon: IconRobot,
   },
 ];
 
@@ -43,13 +92,21 @@ function HeroSection() {
     <header className={styles.heroSection}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>UltraRAG 3.0</h1>
-        <p className={styles.heroSubtitle}>拒绝“盲盒”开发，让每一行推理逻辑都看得见。</p>
+        <p className={styles.heroSubtitle}>拒绝"盲盒"开发，让每一行推理逻辑都看得见。</p>
         
         <div className={styles.heroButtons}>
           <Link
             className={clsx(styles.btnBase, styles.btnGray)}
             to="/blog/ultrarag-3.0-release">
             了解详情
+          </Link>
+          <Link
+            className={clsx(styles.btnBase, styles.btnGray)}
+            to="/blog/ultrarag-3.0-release">
+            <svg className={styles.playIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.14v14l11-7-11-7z"/>
+            </svg>
+            试玩
           </Link>
           <Link
             className={clsx(styles.btnBase, styles.btnBlue)}
@@ -73,20 +130,48 @@ function HeroSection() {
 }
 
 function FeatureCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const cardWidth = 360; 
   const gap = 30;
-  
-  // 简单的视窗计算，实际项目中可能需要 ResizeObserver
-  const maxIndex = Math.max(0, FeaturesList.length - 1); 
+  const totalCards = FeaturesList.length;
+
+  // 三段列表，保证视口内多卡片时也能无缝循环
+  const loopedList = [...FeaturesList, ...FeaturesList, ...FeaturesList];
+
+  // 从中间段开始
+  const [renderIndex, setRenderIndex] = useState(totalCards);
 
   const handlePrev = () => {
-    setCurrentIndex(prev => (prev - 1 + FeaturesList.length) % FeaturesList.length);
+    if (!isTransitioning) return;
+    setIsTransitioning(true);
+    setRenderIndex(prev => prev - 1);
   };
 
   const handleNext = () => {
-    setCurrentIndex(prev => (prev + 1) % FeaturesList.length);
+    if (!isTransitioning) return;
+    setIsTransitioning(true);
+    setRenderIndex(prev => prev + 1);
   };
+
+  // 处理无限循环的瞬移（保持在中间段）
+  const handleTransitionEnd = () => {
+    if (renderIndex < totalCards) {
+      setIsTransitioning(false);
+      setRenderIndex(prev => prev + totalCards);
+    } else if (renderIndex >= totalCards * 2) {
+      setIsTransitioning(false);
+      setRenderIndex(prev => prev - totalCards);
+    }
+  };
+
+  // 瞬移后恢复过渡效果
+  useEffect(() => {
+    if (!isTransitioning) {
+      requestAnimationFrame(() => {
+        setIsTransitioning(true);
+      });
+    }
+  }, [isTransitioning]);
 
   return (
     <section className={styles.carouselSection}>
@@ -105,15 +190,16 @@ function FeatureCarousel() {
           <div 
             className={styles.carouselTrack}
             style={{ 
-              transform: `translateX(-${currentIndex * (cardWidth + gap)}px)`,
-              // 当从最后一个跳回第一个时，可以暂时取消 transition 以实现无缝循环（这里为了简单先保留回弹效果）
-              // 或者如果要简单的“无限往右”，需要克隆 DOM。
-              // 这里我们采用最简单的“循环索引”方式：滑到头后点击 next 会快速回滚到开头。
+              transform: `translateX(-${renderIndex * (cardWidth + gap)}px)`,
+              transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1)' : 'none',
             }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            {FeaturesList.map((feature, idx) => (
+            {loopedList.map((feature, idx) => (
               <div key={idx} className={styles.carouselCard}>
-                <div className={styles.cardImage}>{feature.icon}</div>
+                <div className={styles.cardImage}>
+                  <feature.Icon />
+                </div>
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{feature.title}</h3>
                   <p className={styles.cardDesc}>{feature.desc}</p>
@@ -140,27 +226,27 @@ function QuickStartSection() {
     <section className={styles.quickStartSection}>
       <div className={styles.quickStartContainer}>
         <div className={styles.codeBlock}>
-          <span className={styles.codeLine}><span className={styles.comment}># 安装 UltraRAG</span></span>
-          <span className={styles.codeLine}><span className={styles.command}>pip install ultrarag</span></span>
+          <span className={styles.codeLine}><span className={styles.comment}># 安装依赖</span></span>
+          <span className={styles.codeLine}><span className={styles.command}>pip install uv</span></span>
+          <span className={styles.codeLine}><span className={styles.command}>uv sync</span></span>
           <br/>
-          <span className={styles.codeLine}><span className={styles.comment}># 初始化项目</span></span>
-          <span className={styles.codeLine}><span className={styles.command}>ultrarag init my-project</span></span>
+          <span className={styles.codeLine}><span className={styles.comment}># 运行 Pipeline</span></span>
+          <span className={styles.codeLine}><span className={styles.command}>ultrarag run examples/sayhello.yaml</span></span>
           <br/>
-          <span className={styles.codeLine}><span className={styles.comment}># 启动服务</span></span>
-          <span className={styles.codeLine}><span className={styles.command}>ultrarag start</span></span>
-        </div>
+          <span className={styles.codeLine}><span className={styles.comment}># 启动 UI</span></span>
+          <span className={styles.codeLine}><span className={styles.command}>ultrarag show ui --admin</span></span>
+        </div>  
         
         <div className={styles.quickStartContent}>
           <h2>快速开始</h2>
           <p>
-            只需一行命令即可开始使用。UltraRAG 提供了完整的脚手架工具，
-            助您快速构建生产级 RAG 应用。
+           快速了解如何基于 UltraRAG 运行一个完整的 RAG Pipeline。
           </p>
           <Link
             className={styles.tutorialBtn}
-            to="https://ultrarag.openbmb.cn/"
+            to="https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start"
             target="_blank">
-            View Tutorial
+            即刻上手
           </Link>
         </div>
       </div>
@@ -173,7 +259,7 @@ export default function Home() {
   return (
     <Layout
       title={`UltraRAG 3.0`}
-      description="拒绝“盲盒”开发，让每一行推理逻辑都看得见">
+      description="拒绝盲盒开发，让每一行推理逻辑都看得见">
       
       <main>
         {/* 1. Hero: UltraRAG 3.0 + 详情 */}

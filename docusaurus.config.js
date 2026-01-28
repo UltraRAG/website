@@ -5,7 +5,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'UltraRAG',
   tagline: 'The Modular and High-Precision RAG Framework',
-  favicon: 'img/logo.png',
+  favicon: 'img/logo.svg',
 
   // 这里的 url 填你未来上线的网址
   url: 'https://your-github-username.github.io', 
@@ -52,7 +52,7 @@ const config = {
         // title: 'UltraRAG',
         logo: {
           alt: 'UltraRAG Logo',
-          src: 'img/logo.png',
+          src: 'img/logo.svg',
         },
         items: [
           // Docs Mega Menu
@@ -62,17 +62,17 @@ const config = {
             label: 'Docs',
             items: [
               {
-                title: 'Getting Started',
+                title: 'Tutorial',
                 items: [
-                  { label: 'Tutorial', href: 'https://ultrarag.openbmb.cn/', target: '_blank' },
+                  { label: 'Home', href: 'https://ultrarag.openbmb.cn/', target: '_blank' },
+                  { label: 'Installation', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation', target: '_blank' },
                   { label: 'Quick Start', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start', target: '_blank' },
                 ]
               },
               {
-                title: 'Resources',
+                title: 'News',
                 items: [
-                  { label: 'Blog', to: '/blog' },
-                  { label: 'Installation', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation', target: '_blank' },
+                  { label: 'Blog', to: '/blog' },             
                 ]
               }
             ]
@@ -81,20 +81,26 @@ const config = {
           {
             type: 'custom-megaMenu',
             position: 'left',
-            label: 'Products',
+            label: 'Projects',
             items: [
               {
-                title: 'Core',
+                title: 'UltraRAG',
                 items: [
-                  { label: 'Daily Paper', to: '/daily-papers' },
-                  { label: 'Model', href: 'https://huggingface.co/openbmb/AgentCPM-Report', target: '_blank' },
+                  { label: 'Demo', to: '/daily-papers' },
+                  { label: 'Benchmark & Corpus', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
                 ]
               },
               {
-                title: 'Data',
+                title: 'Model',
                 items: [
-                  { label: 'Dataset', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
-                  { label: 'Benchmarks', href: '#', target: '_blank' }, // 示例占位
+                  { label: 'AgentCPM-Report', href: 'https://huggingface.co/openbmb/AgentCPM-Report', target: '_blank' },
+                  { label: 'MiniCPM-Embedding-Light', href: 'https://huggingface.co/openbmb/MiniCPM-Embedding-Light', target: '_blank' },
+                ]
+              },
+              {
+                title: 'Research',
+                items: [
+                  { label: 'Daily Paper', to: '/daily-papers' },
                 ]
               }
             ]
@@ -130,24 +136,8 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              { label: 'Installation', to: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation' },
-              { label: 'Quick Start', to: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start' },              
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              { label: 'Discord', href: '#' },
-              { label: 'Twitter', href: '#' },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} UltraRAG Project. Built with Docusaurus.`,
+        style: 'light',
+        copyright: `Copyright © ${new Date().getFullYear()} UltraRAG.`,
       },
       prism: {
         theme: prismThemes.github,
