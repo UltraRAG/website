@@ -27,6 +27,14 @@
   margin-bottom: 1rem;
   color: #111827;
   padding-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.headerIcon {
+  color: #3b82f6;
+  flex-shrink: 0;
 }
 
 .dateList {

@@ -1,0 +1,158 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  min-height: 80vh;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: 5rem;
+  padding-top: 2rem;
+}
+
+.pageTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.pageSubtitle {
+  font-size: 1.5rem;
+  color: #86868b;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Grid Layout */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2.5rem;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.05);
+}
+
+.cardIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  background: #f5f5f7;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 1rem;
+}
+
+.cardText {
+  color: #515154;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.buttonGroup {
+  margin-top: auto;
+}
+
+.primaryLink {
+  display: inline-block;
+  background: #0071e3;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 980px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.primaryLink:hover {
+  background: #0077ed;
+  color: white;
+  text-decoration: none;
+  transform: scale(1.02);
+}
+
+.secondaryLink {
+  display: inline-block;
+  color: #0071e3;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.secondaryLink:hover {
+  text-decoration: underline;
+}
+
+/* FAQ Section */
+.faqSection {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faqTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.faqGrid {
+  display: grid;
+  gap: 2rem;
+}
+
+.faqItem h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #1d1d1f;
+}
+
+.faqItem p {
+  color: #86868b;
+  line-height: 1.6;
+}
+
+/* Dark Mode Support */
+[data-theme='dark'] .pageTitle { color: #f5f5f7; }
+[data-theme='dark'] .card { 
+  background: #1c1c1e; 
+  border-color: rgba(255,255,255,0.1);
+}
+[data-theme='dark'] .cardTitle { color: #f5f5f7; }
+[data-theme='dark'] .cardText { color: #a1a1a6; }
+[data-theme='dark'] .cardIcon { background: #2c2c2e; }
+[data-theme='dark'] .faqItem h4 { color: #f5f5f7; }
+
+@media (max-width: 768px) {
+  .pageTitle { font-size: 2.5rem; }
+  .gridContainer { grid-template-columns: 1fr; }
+}

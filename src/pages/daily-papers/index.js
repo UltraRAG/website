@@ -7,6 +7,27 @@ import clsx from 'clsx';
 // 目标 URL (使用 jsDelivr CDN 以获得更好的性能和 CORS 支持)
 const PAPER_SOURCE_URL = 'https://cdn.jsdelivr.net/gh/OpenBMB/UltraRAG@rag-paper-daily/rag-paper-daily/README.md';
 
+function CalendarIcon(props) {
+  return (
+    <svg
+      {...props}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="16" y1="2" x2="16" y2="6"></line>
+      <line x1="8" y1="2" x2="8" y2="6"></line>
+      <line x1="3" y1="10" x2="21" y2="10"></line>
+    </svg>
+  );
+}
+
 function PaperCard({ title, link, abstract, summary }) {
   // 清理 summary 中的 HTML 标签（如果有）
   const cleanSummary = summary?.replace(/<details>.*?<\/details>/g, '').replace(/<summary>.*?<\/summary>/g, '').trim();
@@ -170,7 +191,9 @@ export default function DailyPapers() {
           <>
             {/* Sidebar Navigation */}
             <aside className={styles.sidebar}>
-              <div className={styles.sidebarTitle}>📅 Timeline</div>
+              <div className={styles.sidebarTitle}>
+                <CalendarIcon className={styles.headerIcon} /> Timeline
+              </div>
               <ul className={styles.dateList}>
                 {papersByDate.map((group) => (
                   <li key={group.date} className={styles.dateItem}>
@@ -193,8 +216,7 @@ export default function DailyPapers() {
               <header className={styles.pageHeader}>
                 <h1 className={styles.pageTitle}>RAG Paper Daily</h1>
                 <p className={styles.pageSubtitle}>
-                  Curated latest research on Retrieval-Augmented Generation.
-                  Sourced from <Link href="https://github.com/OpenBMB/UltraRAG">OpenBMB/UltraRAG</Link>.
+                  Discover Recent Progress in Retrieval-Augmented Generation.
                 </p>
               </header>
 
@@ -205,7 +227,7 @@ export default function DailyPapers() {
                   className={styles.dateSection}
                 >
                   <div className={styles.dateHeader}>
-                    <span>📅</span> {group.date}
+                    <CalendarIcon className={styles.headerIcon} /> {group.date}
                   </div>
                   <div className={styles.paperGrid}>
                     {group.papers.map((paper, idx) => (

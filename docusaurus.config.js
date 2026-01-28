@@ -5,7 +5,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'UltraRAG',
   tagline: 'The Modular and High-Precision RAG Framework',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
 
   // 这里的 url 填你未来上线的网址
   url: 'https://your-github-username.github.io', 
@@ -27,9 +27,7 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: './sidebars.js',
-        },
+        docs: false, // 禁用 docs 插件
         blog: {
           showReadingTime: true,
         },
@@ -54,46 +52,80 @@ const config = {
         // title: 'UltraRAG',
         logo: {
           alt: 'UltraRAG Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
-          // --- 1. Tutorials (改成跳转外部网站) ---
+          // Docs Mega Menu
           {
-            label: 'Tutorial',
-            href: 'https://ultrarag.openbmb.cn/', // 您的独立网站地址
-            position: 'right',
-            target: '_blank', // 强制新窗口打开
+            type: 'custom-megaMenu',
+            position: 'left',
+            label: 'Docs',
+            items: [
+              {
+                title: 'Getting Started',
+                items: [
+                  { label: 'Tutorial', href: 'https://ultrarag.openbmb.cn/', target: '_blank' },
+                  { label: 'Quick Start', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start', target: '_blank' },
+                ]
+              },
+              {
+                title: 'Resources',
+                items: [
+                  { label: 'Blog', to: '/blog' },
+                  { label: 'Installation', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation', target: '_blank' },
+                ]
+              }
+            ]
           },
+          // Products Mega Menu
           {
-            label: 'Daily Paper',
-            to: '/daily-papers',
-            position: 'right',
+            type: 'custom-megaMenu',
+            position: 'left',
+            label: 'Products',
+            items: [
+              {
+                title: 'Core',
+                items: [
+                  { label: 'Daily Paper', to: '/daily-papers' },
+                  { label: 'Model', href: 'https://huggingface.co/openbmb/AgentCPM-Report', target: '_blank' },
+                ]
+              },
+              {
+                title: 'Data',
+                items: [
+                  { label: 'Dataset', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
+                  { label: 'Benchmarks', href: '#', target: '_blank' }, // 示例占位
+                ]
+              }
+            ]
           },
-          // 2. 博客 (靠右)
-          {to: '/blog', label: 'Blog', position: 'right'},
+          // Team Mega Menu
           {
-            label: 'Model',
-            href: 'https://huggingface.co/openbmb/AgentCPM-Report', // 您的独立网站地址
-            position: 'right',
-            target: '_blank', // 强制新窗口打开
+            type: 'custom-megaMenu',
+            position: 'left',
+            label: 'Team',
+            items: [
+              {
+                title: 'About Us',
+                items: [
+                  { label: 'Meet the Team', to: '/team' },
+                ]
+              },
+              {
+                title: 'Connect',
+                items: [
+                  { label: 'Contact Us', to: '/contact' },
+                  { label: 'Join Us', href: 'https://nlp.csai.tsinghua.edu.cn/job/29', target: '_blank' }, // 示例占位
+                ]
+              }
+            ]
           },
+          // GitHub Star Button
           {
-            label: 'Dataset',
-            href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', // 您的独立网站地址
-            position: 'right',
-            target: '_blank', // 强制新窗口打开
-          },
-          // 3. 团队 (靠右)
-          {to: '/team', label: 'Team', position: 'right'},
-          // 4. 联系 (靠右)
-          {to: '#contact', label: 'Contact', position: 'right'},
-          
-          // 5. GitHub 图标 (靠右，最后面)
-          {
+            type: 'custom-githubStar',
+            position: 'left',
+            repo: 'OpenBMB/UltraRAG',
             href: 'https://github.com/OpenBMB/UltraRAG',
-            position: 'right',
-            className: 'header-github-link', // 样式钩子
-            'aria-label': 'GitHub repository',
           },
         ],
       },

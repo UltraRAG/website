@@ -158,7 +158,8 @@ function QuickStartSection() {
           </p>
           <Link
             className={styles.tutorialBtn}
-            to="/docs/tutorial-basics/create-a-blog-post">
+            to="https://ultrarag.openbmb.cn/"
+            target="_blank">
             View Tutorial
           </Link>
         </div>
