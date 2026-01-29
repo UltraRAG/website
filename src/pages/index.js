@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
@@ -59,29 +60,24 @@ const IconRobot = () => (
 // 特效总览数据
 const FeaturesList = [
   {
-    title: 'Pipeline Builder',
-    desc: '自动化处理繁琐界面封装。只需专注于逻辑编排，静态代码即刻变身可交互的演示系统。',
-    Icon: IconPipeline,
+    title: '低代码编排复杂流程',
+    desc: '推理编排：原生支持串行、循环与条件分支等控制结构。开发者仅需编写 YAML 配置文件，即可在数十行代码内实现复杂的迭代式 RAG 逻辑。',
+    image: 'img/feature/pipeline.png',
   },
   {
-    title: 'White-box Reasoning',
-    desc: '拒绝黑盒。实时呈现复杂长链条任务中的每一次循环、分支与决策细节。',
-    Icon: IconSearch,
+    title: '模块化扩展与复现',
+    desc: '原子化 Server：基于 MCP 架构将功能解耦为独立 Server。新功能仅需以函数级 Tool 形式注册，即可无缝接入流程，实现极高的复用性。',
+    image: 'img/feature/server.png',
   },
   {
-    title: 'AI Copilot',
-    desc: '内嵌懂框架的 AI 助手，通过自然语言交互辅助生成 Pipeline 配置与优化 Prompt。',
-    Icon: IconLightbulb,
+    title: '统一评测与基准对比',
+    desc: '科研提效：内置标准化评测流程，开箱即用主流科研 Benchmark。通过统一指标管理与基线集成，大幅提升实验的可复现性与对比效率。',
+    image: 'img/feature/benchmark.png',
   },
   {
-    title: 'Knowledge Graph',
-    desc: '深度整合知识图谱，提升检索准确率与推理可解释性。',
-    Icon: IconGraph,
-  },
-  {
-    title: 'Multi-Agent',
-    desc: '原生支持多智能体协作，复杂任务自动拆解与分发。',
-    Icon: IconRobot,
+    title: '交互原型快速生成',
+    desc: '一键交付：告别繁琐的 UI 开发。仅需一行命令，即可将 Pipeline 逻辑瞬间转化为可交互的对话式 Web UI，缩短从算法到演示的距离。',
+    image: 'img/feature/ui.png',
   },
 ];
 
@@ -175,7 +171,7 @@ function FeatureCarousel() {
 
   return (
     <section className={styles.carouselSection}>
-      <h2 className={styles.sectionTitle}>特效总览</h2>
+      <h2 className={styles.sectionTitle}>核心亮点</h2>
       
       <div className={styles.carouselContainer}>
         {/* 左箭头 */}
@@ -197,9 +193,10 @@ function FeatureCarousel() {
           >
             {loopedList.map((feature, idx) => (
               <div key={idx} className={styles.carouselCard}>
-                <div className={styles.cardImage}>
-                  <feature.Icon />
-                </div>
+                <div
+                  className={styles.cardImage}
+                  style={{ backgroundImage: `url(${useBaseUrl(feature.image)})` }}
+                />
                 <div className={styles.cardContent}>
                   <h3 className={styles.cardTitle}>{feature.title}</h3>
                   <p className={styles.cardDesc}>{feature.desc}</p>
