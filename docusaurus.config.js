@@ -8,11 +8,11 @@ const config = {
   favicon: 'img/logo.svg',
 
   // 这里的 url 填你未来上线的网址
-  url: 'https://your-github-username.github.io', 
-  baseUrl: '/ultrarag/', // 如果你是用 GitHub Pages 且不是自定义域名，这里通常填 '/仓库名/'
+  url: 'https://ultrarag.github.io', 
+  baseUrl: '/website/', // 如果你是用 GitHub Pages 且不是自定义域名，这里通常填 '/仓库名/'
 
-  organizationName: 'your-github-username', // 你的 GitHub 用户名
-  projectName: 'ultrarag', // 你的仓库名
+  organizationName: 'xhd0728', // 你的 GitHub 用户名
+  projectName: 'website', // 你的仓库名
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
