@@ -117,3 +117,12 @@
   color: #9ca3af;
   font-size: 12px;
 }
+
+/* Blog video: full width and rounded */
+.blogVideo {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border-radius: 12px;
+  margin: 24px 0;
+}

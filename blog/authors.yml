@@ -23,3 +23,20 @@ slorber:
     linkedin: sebastienlorber
     github: slorber
     newsletter: https://thisweekinreact.com
+
+ms:
+  name: Sen Mei
+  title: Researcher @TsinghuaNLP
+  url: https://mssssss123.github.io/
+  image_url: /img/team/ms.png
+
+xhd:
+  name: Haidong Xin
+  title: Intern @TsinghuaNLP
+  url: https://xinhaidong.top/
+  image_url: /img/team/xhd.jpg
+
+pcy:
+  name: Chunyi Peng
+  title: Intern @THUNLP
+  image_url: /img/team/pcy.jpg
