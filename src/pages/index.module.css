@@ -26,10 +26,10 @@
 }
 
 .heroTitle {
-  font-size: 80px; /* 超大标题 */
-  line-height: 1.05;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 78px;
+  line-height: 1;
+  font-weight: 800; 
+  letter-spacing: -0.04em;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #000000;
   margin-bottom: 24px;
@@ -43,7 +43,7 @@
 }
 
 .heroSubtitle {
-  font-size: 24px;
+  font-size: 24px; /* 恢复原口号大小 */
   line-height: 1.5;
   font-weight: 400;
   color: #666666;
@@ -51,11 +51,12 @@
   max-width: 540px;
 }
 
+/* 按钮区域 */
 .heroButtons {
   display: flex;
   gap: 12px; /* 按钮间距 */
   align-items: center;
-  flex-wrap: wrap; /* 小屏自动换行 */
+  flex-wrap: nowrap; /* 禁止换行，强制在一行 */
 }
 
 /* Seed 风格按钮：直角微圆角，实心黑 */
@@ -111,17 +112,19 @@
 }
 
 .heroImage {
-  flex: 1;
+  flex: 0.7; /* 图片区域缩小 */
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .heroImgElement {
-  max-width: 100%;
+  width: 100%; /* 占满容器 */
   height: auto;
-  border-radius: 12px;
-  /* 加上高级阴影 */
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); 
+  max-width: 600px; /* 适度限制最大宽度 */
+  border-radius: 0; /* 去掉圆角 */
+  box-shadow: none; /* 去掉阴影 */
+  object-fit: contain;
 }
 
 /* 网格布局区域 (替代 Carousel) */

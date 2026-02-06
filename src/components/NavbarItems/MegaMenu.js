@@ -11,7 +11,7 @@ const ChevronDown = () => (
   </svg>
 );
 
-export default function MegaMenu({ label, items, position }) {
+export default function MegaMenu({ label, items, position, to: triggerTo }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
@@ -50,16 +50,26 @@ export default function MegaMenu({ label, items, position }) {
       onMouseLeave={handleMouseLeave}
       ref={containerRef}
     >
-      <div 
-        className={clsx('navbar__link', styles.megaMenuTrigger, {
-          [styles.active]: isOpen
-        })}
-        role="button"
-        tabIndex={0}
-      >
-        {label}
-        {/* Apple 风格通常不带箭头，但为了指示性可以加上，或者依靠 hover 态 */}
-      </div>
+      {triggerTo ? (
+        <Link
+          to={triggerTo}
+          className={clsx('navbar__link', styles.megaMenuTrigger, {
+            [styles.active]: isOpen
+          })}
+        >
+          {label}
+        </Link>
+      ) : (
+        <div 
+          className={clsx('navbar__link', styles.megaMenuTrigger, {
+            [styles.active]: isOpen
+          })}
+          role="button"
+          tabIndex={0}
+        >
+          {label}
+        </div>
+      )}
 
       <div className={clsx(styles.megaMenuDropdown, { [styles.show]: isOpen })}>
         <div className={styles.dropdownContent}>

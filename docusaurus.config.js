@@ -69,47 +69,17 @@ const config = {
             label: '首页',
             position: 'left',
           },
-          // Docs Mega Menu
-          {
-            type: 'custom-megaMenu',
-            position: 'left',
-            label: 'UltraRAG',
-            items: [
-              {
-                title: '概览',
-                items: [
-                  { label: '试用', to: '' },
-                  { label: '数据集 & 语料库', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
-                ]
-              },
-              {
-                title: '教程',
-                items: [
-                  { label: '主页', href: 'https://ultrarag.openbmb.cn/', target: '_blank' },
-                  { label: '安装', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation', target: '_blank' },
-                  { label: '运行实验', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start', target: '_blank' },
-                  { label: 'UI 部署', href: 'https://ultrarag.openbmb.cn/pages/cn/ui/prepare', target: '_blank' },
-                  { label: '启动 UI', href: 'https://ultrarag.openbmb.cn/pages/cn/ui/start', target: '_blank' },
-                ]
-              },
-              {
-                title: '最新动态',
-                items: [
-                  { label: '博客', to: '/blog' },             
-                ]
-              },
-            ]
-          },
-          // Products Mega Menu
+          // Products Mega Menu（点击"研究"直接进入 /research）
           {
             type: 'custom-megaMenu',
             position: 'left',
             label: '研究',
+            to: '/research',
             items: [
               {
-                title: '概览',
+                title: '最新动态',
                 items: [
-                  { label: '研究总览', to: '/research' },
+                  { label: '博客', to: '/blog' },
                 ]
               },
               {
@@ -124,7 +94,7 @@ const config = {
                 items: [
                   { label: '精选论文', to: '/research#papers' },
                 ]
-              }
+              },
             ]
           },
           // Team Mega Menu

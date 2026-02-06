@@ -166,3 +166,241 @@
   margin: 24px 0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
+
+/* ============================================
+   博客页面全局优化
+   ============================================ */
+
+/* --- 1. 隐藏博客作者信息 --- */
+
+/* 隐藏整个作者区块（头像、名字、属地） */
+.avatar__photo,
+.avatar__photo-link,
+.avatar__subtitle,
+.avatar__name,
+.avatar__intro,
+.avatar {
+  display: none !important;
+}
+
+/* 隐藏作者容器 */
+.container.margin-vert--md {
+  display: none !important;
+}
+
+/* --- 3. 其他优化 --- */
+
+/* 文章容器 - 更宽的阅读区域 */
+article.margin-top--xl {
+  margin-top: 2rem !important;
+}
+
+/* 博客文章标题（限定在 article 内，避免影响首页等其他页面） */
+.markdown h1:first-child,
+article header h1,
+article header h2 {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.2 !important;
+  color: #111 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* 博客正文排版 */
+.markdown {
+  font-size: 17px !important;
+  line-height: 1.8 !important;
+  color: #333 !important;
+  letter-spacing: 0.01em;
+}
+
+.markdown p {
+  margin-bottom: 1.5em !important;
+}
+
+/* 文章内标题层级 */
+.markdown h1 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #111 !important;
+  margin-top: 2.5em !important;
+  margin-bottom: 0.8em !important;
+  letter-spacing: -0.01em;
+}
+
+.markdown h2 {
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  color: #111 !important;
+  margin-top: 2em !important;
+  margin-bottom: 0.7em !important;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.markdown h3 {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #222 !important;
+  margin-top: 1.8em !important;
+  margin-bottom: 0.6em !important;
+}
+
+/* 列表优化 */
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1.5em !important;
+  padding-left: 1.5em !important;
+}
+
+.markdown li {
+  margin-bottom: 0.5em !important;
+  line-height: 1.7 !important;
+}
+
+/* 加粗文字 */
+.markdown strong {
+  font-weight: 700;
+  color: #111;
+}
+
+/* 引用块优化 */
+.markdown blockquote {
+  border-left: 3px solid #2563eb !important;
+  background: #f8fafc !important;
+  padding: 1em 1.5em !important;
+  margin: 1.5em 0 !important;
+  border-radius: 0 8px 8px 0;
+  color: #444 !important;
+  font-size: 16px !important;
+}
+
+.markdown blockquote p {
+  margin-bottom: 0 !important;
+}
+
+/* 代码块优化 */
+.markdown code {
+  font-size: 0.9em !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  background: #f3f4f6 !important;
+  color: #e11d48 !important;
+  font-weight: 500;
+}
+
+.markdown pre code {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  font-weight: 400;
+}
+
+/* 图片优化 */
+.markdown img {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  margin: 1.5em 0;
+}
+
+/* --- 3. 博客列表页优化 --- */
+
+/* 列表页文章卡片间距 */
+article.margin-bottom--xl {
+  margin-bottom: 3rem !important;
+  padding-bottom: 3rem !important;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 列表页标题 */
+article header h2 a {
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+  color: #111 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+article header h2 a:hover {
+  color: #2563eb !important;
+  text-decoration: none !important;
+}
+
+/* 标签样式 */
+.tag_node_modules-\@docusaurus-theme-classic-lib-theme-Tag-styles-module,
+a[class*="tag_"] {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 20px !important;
+  padding: 3px 12px !important;
+  border: 1px solid #e5e5e5 !important;
+  color: #666 !important;
+  background: transparent !important;
+  transition: all 0.2s ease;
+}
+
+a[class*="tag_"]:hover {
+  border-color: #2563eb !important;
+  color: #2563eb !important;
+  background: rgba(37, 99, 235, 0.04) !important;
+}
+
+/* 日期和阅读时间 */
+.blog-post-date,
+time {
+  font-size: 14px !important;
+  color: #999 !important;
+}
+
+/* "阅读更多"链接 */
+.read-more a,
+a[class*="readMore"] {
+  font-weight: 600;
+  color: #2563eb !important;
+  text-decoration: none !important;
+}
+
+/* --- 4. 博客文章详情页优化 --- */
+
+/* 文章页 TOC 侧边栏 */
+.table-of-contents {
+  font-size: 13px !important;
+  border-left: 1px solid #f0f0f0 !important;
+}
+
+.table-of-contents a {
+  color: #999 !important;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents a:hover,
+.table-of-contents a.active {
+  color: #2563eb !important;
+}
+
+/* 文章底部导航 (上一篇/下一篇) */
+.pagination-nav__link {
+  border: 1px solid #f0f0f0 !important;
+  border-radius: 12px !important;
+  padding: 1.2em !important;
+  transition: all 0.2s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: #e0e0e0 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.pagination-nav__sublabel {
+  font-size: 12px !important;
+  color: #999 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pagination-nav__label {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #111 !important;
+}

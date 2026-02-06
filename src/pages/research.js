@@ -5,6 +5,34 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import styles from './research.module.css';
 
+// --- 博客数据 ---
+const BlogsList = [
+  {
+    title: 'UltraRAG 3.0：告别黑盒，推理逻辑全透明',
+    summary: '针对"验证算法原型只需一周，构建可用系统却耗时数月"的痛点，UltraRAG 3.0 带来了全链路可视化推理、模块化 MCP 架构与统一评测体系三大核心升级。',
+    date: '2026.01.23',
+    authors: '梅森, 辛海东',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-3.0-release',
+  },
+  {
+    title: 'UltraRAG 2.1：纵深知识接入，横跨多模态支持',
+    summary: '围绕原生多模态支持、知识接入与语料构建自动化、统一构建与评估的 RAG 工作流三大方向，进行了面向实际研究需求的全面升级。',
+    date: '2025.11.11',
+    authors: '梅森, 辛海东',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-2.1-release',
+  },
+  {
+    title: 'UltraRAG 2.0：代码极简化，创新最大化',
+    summary: '首个基于 Model Context Protocol (MCP) 架构设计的 RAG 框架，让科研人员只需编写 YAML 文件即可实现多阶段推理系统。',
+    date: '2025.08.28',
+    authors: '梅森, 辛海东, 彭淳毅',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-2.0-release',
+  },
+];
+
 // --- 模型数据 ---
 const ModelsList = [
   {
@@ -65,6 +93,52 @@ function ResearchHero() {
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>研究</h1>
         <p className={styles.heroSubtitle}>了解我们的最新研究成果</p>
+      </div>
+    </section>
+  );
+}
+
+function BlogSection() {
+  return (
+    <section id="blog" className={styles.blogSection}>
+      <div className={styles.container}>
+        <div className={styles.sectionHeaderRow}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>博客</h2>
+            <p className={styles.sectionDesc}>了解 UltraRAG 的每一次重大更新与技术思考。</p>
+          </div>
+          <Link className={styles.viewAllLink} to="/blog">
+            查看全部 <span>→</span>
+          </Link>
+        </div>
+
+        {/* 第一篇大卡片 */}
+        <Link to={BlogsList[0].to} className={styles.blogFeatured}>
+          <div className={styles.blogFeaturedTag}>{BlogsList[0].tags[0]}</div>
+          <h3 className={styles.blogFeaturedTitle}>{BlogsList[0].title}</h3>
+          <p className={styles.blogFeaturedSummary}>{BlogsList[0].summary}</p>
+          <div className={styles.blogFeaturedMeta}>
+            <span>{BlogsList[0].date}</span>
+            <span className={styles.blogMetaDivider}>·</span>
+            <span>{BlogsList[0].authors}</span>
+          </div>
+        </Link>
+
+        {/* 其余卡片网格 */}
+        <div className={styles.blogGrid}>
+          {BlogsList.slice(1).map((blog, idx) => (
+            <Link key={idx} to={blog.to} className={styles.blogCard}>
+              <div className={styles.blogCardTag}>{blog.tags[0]}</div>
+              <h3 className={styles.blogCardTitle}>{blog.title}</h3>
+              <p className={styles.blogCardSummary}>{blog.summary}</p>
+              <div className={styles.blogCardMeta}>
+                <span>{blog.date}</span>
+                <span className={styles.blogMetaDivider}>·</span>
+                <span>{blog.authors}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -147,6 +221,7 @@ export default function Research() {
     <Layout title="研究" description="UltraRAG Research - Models and Papers">
       <main>
         <ResearchHero />
+        <BlogSection />
         <ModelsSection />
         <PapersSection />
       </main>

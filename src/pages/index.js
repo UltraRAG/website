@@ -70,7 +70,18 @@ function HeroSection() {
               <span style={{marginRight: '6px'}}>▶</span> 试玩
             </Link>
 
-            {/* 按钮 3: Github */}
+            {/* 按钮 3: 教程文档 */}
+            <Link
+              className={styles.btnSecondary}
+              to="https://ultrarag.openbmb.cn/">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '6px'}}>
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              教程文档
+            </Link>
+
+            {/* 按钮 4: Github */}
             <Link
               className={styles.btnSecondary}
               to="https://github.com/OpenBMB/UltraRAG">
@@ -85,7 +96,7 @@ function HeroSection() {
 
         <div className={styles.heroImage}>
           <img 
-            src={useBaseUrl('img/feature/pipeline.png')} 
+            src={useBaseUrl('img/home/home.png')} 
             className={styles.heroImgElement} 
             alt="UltraRAG Pipeline Architecture" 
           />

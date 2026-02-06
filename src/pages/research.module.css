@@ -55,6 +55,193 @@
 }
 
 /* ============================================
+   Blog Section
+   ============================================ */
+.blogSection {
+  padding: 80px 0;
+  background: #ffffff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+
+.sectionHeaderRow .sectionHeader {
+  margin-bottom: 0;
+}
+
+.viewAllLink {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2563eb !important;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: gap 0.2s ease;
+  padding-bottom: 4px;
+}
+
+.viewAllLink:hover {
+  gap: 10px;
+  text-decoration: none !important;
+}
+
+/* Featured Blog Card (第一篇大卡) */
+.blogFeatured {
+  display: block;
+  text-decoration: none !important;
+  color: inherit !important;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 48px;
+  margin-bottom: 28px;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.blogFeatured::after {
+  content: '→';
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  font-size: 24px;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.blogFeatured:hover {
+  transform: translateY(-4px);
+  border-color: #e0e0e0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  text-decoration: none !important;
+}
+
+.blogFeatured:hover::after {
+  color: #2563eb;
+  transform: translateX(4px);
+}
+
+.blogFeaturedTag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.blogFeaturedTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  max-width: 85%;
+  transition: color 0.2s ease;
+}
+
+.blogFeatured:hover .blogFeaturedTitle {
+  color: #2563eb;
+}
+
+.blogFeaturedSummary {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 85%;
+}
+
+.blogFeaturedMeta {
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blogMetaDivider {
+  color: #ccc;
+}
+
+/* Blog Grid (其余卡片) */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.blogCard {
+  display: block;
+  text-decoration: none !important;
+  color: inherit !important;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 36px;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  border-color: #e0e0e0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  text-decoration: none !important;
+}
+
+.blogCardTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.blogCardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+.blogCard:hover .blogCardTitle {
+  color: #2563eb;
+}
+
+.blogCardSummary {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  /* 限制行数 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blogCardMeta {
+  font-size: 13px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================================
    Models Section
    ============================================ */
 .modelsSection {
@@ -304,5 +491,32 @@
   .paperLinkText {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .blogFeatured {
+    padding: 28px;
+  }
+
+  .blogFeaturedTitle {
+    font-size: 22px;
+    max-width: 100%;
+  }
+
+  .blogFeaturedSummary {
+    max-width: 100%;
+  }
+
+  .blogFeatured::after {
+    display: none;
+  }
+
+  .sectionHeaderRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 }
