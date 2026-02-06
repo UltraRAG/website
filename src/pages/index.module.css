@@ -1,7 +1,7 @@
 /* Hero 区域 - Seed 风格 (极简、高对比) */
 .heroSection {
   background-color: #ffffff;
-  padding: 120px 0 80px; /* 增加顶部留白 */
+  padding: 60px 0 80px; /* 顶部留白（已由 main-wrapper 提供 60px navbar 高度） */
   text-align: left; /* 改为左对齐，更有设计感 */
   position: relative;
   overflow: hidden;
@@ -150,103 +150,312 @@
   max-width: 600px;
 }
 
-.gridContainer {
-  max-width: 1200px;
+/* 轮播容器 */
+.carouselContainer {
+  max-width: 1200px; /* 定宽 */
   margin: 0 auto;
   padding: 0 40px;
-  display: grid;
-  /* 自适应网格：最小宽度 340px */
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 40px;
+  position: relative;
 }
 
-/* Seed 风格卡片 */
-.gridCard {
+/* 轮播大卡片 - 左右布局 */
+.carouselCard {
   background: #ffffff;
-  border: 1px solid #f0f0f0; /* 极细边框 */
-  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 20px; /* 大圆角 */
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex; /* 左右布局 */
+  align-items: stretch;
+  height: 480px; /* 固定高度，展现大气感 */
+  transition: all 0.5s ease;
 }
 
-.gridCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  border-color: transparent;
-}
-
-.cardImageWrapper {
-  width: 100%;
-  padding-top: 60%; /* 16:10 比例 */
+.carouselImageWrapper {
+  flex: 1.2; /* 图片占比较大 */
   position: relative;
   background-color: #f9f9f9;
   overflow: hidden;
 }
 
-.cardImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+.carouselImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.8s ease;
 }
 
-.gridCard:hover .cardImage {
+.carouselCard:hover .carouselImage {
   transform: scale(1.05);
 }
 
-.cardContent {
-  padding: 32px;
-  flex: 1;
+.carouselContent {
+  flex: 0.8;
+  padding: 60px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.cardTag {
-  font-size: 12px;
-  font-weight: 600;
+.carouselTag {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2563eb;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #2563eb; /* 科技蓝 */
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
-.cardTitle {
-  font-size: 24px;
-  font-weight: 600;
+.carouselTitle {
+  font-size: 36px;
+  font-weight: 700;
   color: #000;
-  margin-bottom: 12px;
-  line-height: 1.3;
+  margin-bottom: 24px;
+  line-height: 1.2;
 }
 
-.cardDesc {
-  font-size: 16px;
+.carouselDesc {
+  font-size: 18px;
   color: #666;
   line-height: 1.6;
-  margin-bottom: 24px;
 }
 
-.cardLink {
-  margin-top: auto;
-  font-size: 16px;
-  font-weight: 500;
-  color: #000;
-  display: inline-flex;
+/* 指示点 */
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: #2563eb;
+  transform: scale(1.2);
+}
+
+/* 轮播左右箭头 */
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-70%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  color: #333;
+  font-size: 0; /* 隐藏文字，用 SVG 代替 */
+  display: flex;
   align-items: center;
-  gap: 6px;
-  transition: gap 0.2s ease;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-.gridCard:hover .cardLink {
-  gap: 10px;
-  color: #2563eb;
+/* 使用伪元素画箭头 chevron */
+.carouselArrow::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  display: block;
+  transition: border-color 0.3s ease;
 }
 
-/* Logo 墙 */
+.arrowLeft::after {
+  transform: rotate(135deg);
+  margin-left: 3px;
+}
+
+.arrowRight::after {
+  transform: rotate(-45deg);
+  margin-right: 3px;
+}
+
+.carouselArrow:hover {
+  background: #000;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  transform: translateY(-70%) scale(1.08);
+}
+
+.carouselArrow:hover::after {
+  border-color: #fff;
+}
+
+.arrowLeft {
+  left: -64px;
+}
+
+.arrowRight {
+  right: -64px;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 996px) {
+  /* ... previous media queries ... */
+
+  .carouselCard {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .carouselImageWrapper {
+    height: 240px;
+    flex: none;
+  }
+  
+  .carouselContent {
+    padding: 30px;
+    flex: none;
+  }
+
+  .carouselTitle {
+    font-size: 28px;
+  }
+}
+
+/* Quick Start Section */
+.quickStartSection {
+  padding: 100px 0;
+  background: #ffffff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.quickStartContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.quickStartCode {
+  flex: 1;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #fff;
+  position: relative;
+  padding-top: 48px; /* 留出标题栏空间 */
+}
+
+/* Mac 窗口红黄绿点 */
+.quickStartCode::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+  z-index: 10;
+}
+
+/* 强制覆盖 CodeBlock 样式以适应容器 */
+.quickStartCode :global(.theme-code-block) {
+  margin: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.quickStartCode pre {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 24px 24px !important; /* 调整内边距 */
+  color: #ffffff !important;
+}
+
+/* 强制所有代码内容为白色/亮色 */
+.quickStartCode :global(.token) {
+  color: #e6e6e6 !important;
+}
+
+.quickStartCode :global(.token.comment) {
+  color: #888888 !important;
+}
+
+.quickStartCode :global(.token.function) {
+  color: #61afef !important;
+}
+
+.quickStartCode :global(.token.keyword) {
+  color: #c678dd !important;
+}
+
+.quickStartContent {
+  flex: 1;
+}
+
+.quickStartTitle {
+  font-size: 40px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.quickStartDesc {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* 图片容器 */
+.quickStartImageWrapper {
+  flex: 1.2; /* 稍微大一点，默认是 1 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 移除背景色和边框阴影，使图片更纯粹 */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.quickStartImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.quickStartImageWrapper:hover .quickStartImage {
+  transform: scale(1.02);
+}
+
+/* 调整间距 */
+.quickStartSection {
+  padding: 100px 0;
+  background: #ffffff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.gapLine {
+  height: 100px;
+  width: 1px;
+}
 .logoSection {
   padding: 80px 0;
   background-color: #fafafa;
@@ -294,5 +503,16 @@
   
   .heroTitle {
     font-size: 48px;
+  }
+
+  .quickStartContainer {
+    flex-direction: column-reverse; /* Code on top or bottom? usually content on top on mobile */
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .quickStartCode {
+    width: 100%;
+    text-align: left;
   }
 }

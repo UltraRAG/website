@@ -73,15 +73,23 @@ const config = {
           {
             type: 'custom-megaMenu',
             position: 'left',
-            label: '文档',
+            label: 'UltraRAG',
             items: [
+              {
+                title: '概览',
+                items: [
+                  { label: '试用', to: '' },
+                  { label: '数据集 & 语料库', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
+                ]
+              },
               {
                 title: '教程',
                 items: [
                   { label: '主页', href: 'https://ultrarag.openbmb.cn/', target: '_blank' },
                   { label: '安装', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/installation', target: '_blank' },
-                  { label: '运行基准实验', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start', target: '_blank' },
-                  { label: '启动交互界面', href: 'https://ultrarag.openbmb.cn/pages/cn/ui/start', target: '_blank' },
+                  { label: '运行实验', href: 'https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start', target: '_blank' },
+                  { label: 'UI 部署', href: 'https://ultrarag.openbmb.cn/pages/cn/ui/prepare', target: '_blank' },
+                  { label: '启动 UI', href: 'https://ultrarag.openbmb.cn/pages/cn/ui/start', target: '_blank' },
                 ]
               },
               {
@@ -96,13 +104,12 @@ const config = {
           {
             type: 'custom-megaMenu',
             position: 'left',
-            label: '项目',
+            label: '研究',
             items: [
               {
-                title: 'UltraRAG',
+                title: '概览',
                 items: [
-                  { label: '试玩', to: '/daily-papers' },
-                  { label: '数据集 & 语料库', href: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark', target: '_blank' },
+                  { label: '研究总览', to: '/research' },
                 ]
               },
               {
@@ -113,9 +120,9 @@ const config = {
                 ]
               },
               {
-                title: '研究',
+                title: '论文',
                 items: [
-                  { label: '每日论文', to: '/daily-papers' },
+                  { label: '精选论文', to: '/research#papers' },
                 ]
               }
             ]
@@ -135,7 +142,7 @@ const config = {
               {
                 title: '联系',
                 items: [
-                  { label: '联系我们', to: '/contact' },
+                  { label: '联系', to: '/contact' },
                   { label: '加入我们', href: 'https://nlp.csai.tsinghua.edu.cn/job/29', target: '_blank' },
                 ]
               }

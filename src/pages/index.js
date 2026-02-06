@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
+import CodeBlock from '@theme/CodeBlock';
 import styles from './index.module.css';
 
 // --- 数据 ---
@@ -58,7 +59,7 @@ function HeroSection() {
             {/* 按钮 1: 了解详情 -> 3.0 Blog */}
             <Link
               className={styles.btnPrimary}
-              to="/blog/2026-01-27-ultrarag-3.0-release">
+              to="/blog/ultrarag-3.0-release">
               了解详情
             </Link>
 
@@ -95,6 +96,18 @@ function HeroSection() {
 }
 
 function FeatureGrid() {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  // 自动轮播
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % FeaturesList.length);
+    }, 5000); // 5秒切换一次
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentFeature = FeaturesList[activeIndex];
+
   return (
     <section className={styles.gridSection}>
       <div className={styles.sectionHeader}>
@@ -104,26 +117,49 @@ function FeatureGrid() {
         </p>
       </div>
       
-      <div className={styles.gridContainer}>
-        {FeaturesList.map((feature, idx) => (
-          <div key={idx} className={styles.gridCard}>
-            <div className={styles.cardImageWrapper}>
-              <img 
-                src={useBaseUrl(feature.image)} 
-                className={styles.cardImage} 
-                alt={feature.title} 
-              />
-            </div>
-            <div className={styles.cardContent}>
-              <div className={styles.cardTag}>{feature.tag}</div>
-              <h3 className={styles.cardTitle}>{feature.title}</h3>
-              <p className={styles.cardDesc}>{feature.desc}</p>
-              <div className={styles.cardLink}>
-                了解更多 <span>→</span>
-              </div>
-            </div>
+      <div className={styles.carouselContainer}>
+        {/* 大卡片区域 */}
+        <div className={styles.carouselCard}>
+          <div className={styles.carouselImageWrapper}>
+            <img 
+              key={activeIndex} // key 变化触发淡入动画
+              src={useBaseUrl(currentFeature.image)} 
+              className={styles.carouselImage} 
+              alt={currentFeature.title}
+              style={{animation: 'fadeIn 0.5s'}} 
+            />
           </div>
-        ))}
+          <div className={styles.carouselContent}>
+            <div className={styles.carouselTag}>{currentFeature.tag}</div>
+            <h3 className={styles.carouselTitle}>{currentFeature.title}</h3>
+            <p className={styles.carouselDesc}>{currentFeature.desc}</p>
+          </div>
+        </div>
+
+        {/* 左箭头 */}
+        <button 
+          className={clsx(styles.carouselArrow, styles.arrowLeft)}
+          onClick={() => setActiveIndex((current) => (current - 1 + FeaturesList.length) % FeaturesList.length)}
+          aria-label="上一个"
+        />
+
+        {/* 右箭头 */}
+        <button 
+          className={clsx(styles.carouselArrow, styles.arrowRight)}
+          onClick={() => setActiveIndex((current) => (current + 1) % FeaturesList.length)}
+          aria-label="下一个"
+        />
+
+        {/* 指示点 */}
+        <div className={styles.carouselDots}>
+          {FeaturesList.map((_, idx) => (
+            <div 
+              key={idx}
+              className={clsx(styles.dot, idx === activeIndex && styles.active)}
+              onClick={() => setActiveIndex(idx)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -154,6 +190,62 @@ function LogoSection() {
   );
 }
 
+function QuickStartSection() {
+  return (
+    <section className={styles.quickStartSection}>
+      {/* Part 1: Quick Start Code */}
+      <div className={styles.quickStartContainer}>
+        <div className={styles.quickStartCode}>
+          <CodeBlock language="bash">
+{`# 安装依赖
+pip install uv
+uv sync
+
+# 运行 Pipeline
+ultrarag run examples/sayhello.yaml
+
+# 启动 UI
+ultrarag show ui --admin`}
+          </CodeBlock>
+        </div>
+        <div className={styles.quickStartContent}>
+          <h2 className={styles.quickStartTitle}>快速开始</h2>
+          <p className={styles.quickStartDesc}>
+            快速了解如何基于 UltraRAG 运行一个完整的 RAG Pipeline。
+          </p>
+          <Link
+            className={styles.btnPrimary}
+            to="https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start">
+            即刻上手
+          </Link>
+        </div>
+      </div>
+
+      {/* Part 2: UI Showcase */}
+      <div className={styles.quickStartContainer} style={{marginTop: '100px'}}>
+        <div className={styles.quickStartContent}>
+          <h2 className={styles.quickStartTitle}>可视化交互界面</h2>
+          <p className={styles.quickStartDesc}>
+            内置 Web UI，支持知识库管理、RAG 流程搭建与演示。无需编写任何前端代码，让开发专注于逻辑本身。
+          </p>
+          <Link
+            className={styles.btnSecondary}
+            to="https://ultrarag.openbmb.cn/pages/cn/ui/start">
+            查看详解
+          </Link>
+        </div>
+        <div className={styles.quickStartImageWrapper}>
+          <img 
+            src={useBaseUrl('img/home/ui.png')} 
+            className={styles.quickStartImage} 
+            alt="UltraRAG UI" 
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -164,17 +256,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeatureGrid />
-        
-        <div style={{padding: '100px 20px', textAlign: 'center', background: '#000', color: '#fff'}}>
-            <h2 style={{fontSize: '40px', marginBottom: '20px'}}>Ready to build?</h2>
-            <p style={{marginBottom: '40px', color: '#999', fontSize: '18px'}}>Join the community and start building high-precision RAG applications today.</p>
-            <Link
-              className={styles.btnPrimary}
-              style={{background: '#fff', color: '#000', border: 'none'}}
-              to="https://github.com/OpenBMB/UltraRAG">
-              Star on Github
-            </Link>
-        </div>
+        <QuickStartSection />
       </main>
     </Layout>
   );
