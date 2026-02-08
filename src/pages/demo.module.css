@@ -1134,40 +1134,116 @@
 }
 
 /* =========================================
-   Responsive
+   汉堡按钮（仅移动端显示）
+   ========================================= */
+.mobileMenuBtn {
+  display: none; /* 桌面端隐藏 */
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--demo-text-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  padding: 0;
+}
+
+.mobileMenuBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================
+   遮罩层（仅移动端显示）
+   ========================================= */
+.sidebarBackdrop {
+  display: none; /* 桌面端隐藏 */
+}
+
+/* =========================================
+   Responsive — 手机端
    ========================================= */
 @media screen and (max-width: 768px) {
+  /* 显示汉堡按钮 */
+  .mobileMenuBtn {
+    display: flex;
+  }
+
+  /* 侧边栏：固定定位的抽屉 */
   .sidebar {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
-    z-index: 2050;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    max-width: 85vw;
+    z-index: 3000;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .sidebarCollapsed {
-    width: 0;
-    padding: 0;
-    border: none;
-    overflow: hidden;
+    transform: translateX(-100%);
+    box-shadow: none;
+    /* 保持 width 不变，用 transform 滑出 */
+    width: 280px;
   }
 
+  /* 遮罩层 */
+  .sidebarBackdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2999;
+  }
+
+  /* 侧边栏收起时不要隐藏文字（用 transform 控制显隐） */
+  .sidebarCollapsed .navText {
+    display: block !important;
+  }
+
+  .sidebarCollapsed .sidebarToggleRow {
+    justify-content: space-between;
+  }
+
+  /* 头部 */
   .viewHeader {
-    padding: 0.8rem 1rem;
-    min-height: 56px;
+    padding: 0.6rem 0.75rem;
+    min-height: 48px;
+    gap: 0.5rem;
   }
 
+  /* 聊天区域 */
   .chatHistory {
     padding: 1rem;
   }
 
   .chatInputWrapper {
-    padding: 0.5rem 1rem 1rem;
+    padding: 0.5rem 0.75rem 0.75rem;
   }
 
+  .chatInputContainer {
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 10px 10px 10px 16px;
+  }
+
+  .chatInput {
+    font-size: 15px;
+    padding: 8px 8px 4px;
+  }
+
+  /* 空状态 */
   .greetingGradient {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     white-space: normal;
   }
 
@@ -1187,5 +1263,98 @@
 
   .suggestionCardSub {
     font-size: 0.75rem;
+  }
+
+  /* 聊天气泡 */
+  .chatBubble {
+    max-width: 95%;
+  }
+
+  .chatBubbleUser {
+    max-width: 88%;
+    padding: 0.6rem 1rem;
+    border-radius: 16px 16px 4px 16px;
+  }
+
+  .msgContent {
+    font-size: 15px;
+  }
+
+  .mdH2 {
+    font-size: 1.15rem;
+  }
+
+  .mdH3 {
+    font-size: 1.05rem;
+  }
+
+  /* 代码块 */
+  .codeBlockPre {
+    font-size: 12px;
+    padding: 12px;
+  }
+
+  .codeBlockCopy {
+    opacity: 1; /* 移动端始终显示复制按钮 */
+  }
+
+  /* 思考过程 */
+  .processContainer {
+    border-radius: 12px;
+  }
+
+  .processHeader {
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .processBody {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Pipeline 下拉 */
+  .pipelineMenu {
+    min-width: 200px;
+  }
+
+  .btnPipelineSelect {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .pipelineName {
+    font-size: 0.9rem;
+  }
+
+  .pipelineSubtext {
+    font-size: 0.8rem;
+  }
+
+  /* 发送按钮 */
+  .btnSend {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* 知识库按钮 */
+  .kbSelectorPill {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  /* 引用区域 */
+  .referenceContainer {
+    font-size: 0.8rem;
+  }
+
+  .refTitle {
+    font-size: 0.8rem;
+  }
+
+  /* Toast */
+  .toast {
+    bottom: 16px;
+    font-size: 0.8rem;
+    padding: 10px 18px;
   }
 }

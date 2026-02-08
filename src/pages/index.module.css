@@ -554,34 +554,245 @@
   opacity: 1;
 }
 
-/* 移动端适配 */
+/* 移动端适配 - 平板 */
 @media screen and (max-width: 996px) {
+  .heroSection {
+    padding: 40px 0 60px;
+  }
+
   .heroContent {
     flex-direction: column-reverse;
     text-align: center;
-    padding-top: 40px;
+    padding: 20px 24px 0;
+    gap: 24px;
   }
-  
+
   .heroTextWrapper {
+    max-width: 100%;
+  }
+
+  .heroTitle {
+    font-size: 48px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+    margin-bottom: 32px;
     max-width: 100%;
   }
 
   .heroButtons {
     justify-content: center;
+    flex-wrap: wrap;
   }
-  
-  .heroTitle {
-    font-size: 48px;
+
+  .heroImage {
+    flex: none;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .heroImgElement {
+    max-width: 400px;
+  }
+
+  .gridSection {
+    padding: 60px 0;
+  }
+
+  .sectionHeader {
+    padding: 0 24px;
+    margin-bottom: 40px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+  }
+
+  .sectionDesc {
+    font-size: 16px;
+  }
+
+  .carouselContainer {
+    padding: 0 24px;
+  }
+
+  .arrowLeft {
+    left: -8px;
+  }
+
+  .arrowRight {
+    right: -8px;
+  }
+
+  .carouselArrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carouselArrow::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .quickStartSection {
+    padding: 60px 0;
   }
 
   .quickStartContainer {
-    flex-direction: column-reverse; /* Code on top or bottom? usually content on top on mobile */
+    flex-direction: column-reverse;
     gap: 40px;
+    padding: 0 24px;
     text-align: center;
   }
-  
+
   .quickStartCode {
     width: 100%;
     text-align: left;
+  }
+
+  .quickStartTitle {
+    font-size: 32px;
+  }
+
+  .quickStartDesc {
+    font-size: 16px;
+  }
+
+  .logoGrid {
+    gap: 24px 40px;
+  }
+}
+
+/* 移动端适配 - 手机 */
+@media screen and (max-width: 480px) {
+  .heroSection {
+    padding: 24px 0 40px;
+  }
+
+  .heroContent {
+    padding: 16px 16px 0;
+  }
+
+  .heroTitle {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .heroSubtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+    height: 44px;
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+  .heroImgElement {
+    max-width: 100%;
+  }
+
+  .gridSection {
+    padding: 40px 0;
+  }
+
+  .sectionHeader {
+    padding: 0 16px;
+    margin-bottom: 28px;
+  }
+
+  .sectionTitle {
+    font-size: 26px;
+  }
+
+  .carouselContainer {
+    padding: 0 16px;
+  }
+
+  .carouselCard {
+    border-radius: 14px;
+  }
+
+  .carouselImageWrapper {
+    height: 200px;
+  }
+
+  .carouselContent {
+    padding: 20px;
+  }
+
+  .carouselTitle {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .carouselDesc {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .carouselArrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .arrowLeft {
+    left: 4px;
+  }
+
+  .arrowRight {
+    right: 4px;
+  }
+
+  .carouselDots {
+    margin-top: 24px;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .quickStartSection {
+    padding: 40px 0;
+  }
+
+  .quickStartContainer {
+    padding: 0 16px;
+    gap: 28px;
+  }
+
+  .quickStartContainer[style] {
+    margin-top: 60px !important;
+  }
+
+  .quickStartTitle {
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+
+  .quickStartDesc {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .logoSection {
+    padding: 40px 0;
+  }
+
+  .logoGrid {
+    gap: 16px 28px;
   }
 }

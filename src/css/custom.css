@@ -126,25 +126,90 @@
   display: none !important;
 }
 
-/* 移动端适配 */
+/* ========== 移动端适配 ========== */
 @media (max-width: 996px) {
+  .navbar {
+    height: 52px;
+    min-height: 52px;
+    /* 移除 backdrop-filter 以免影响侧边栏的 position:fixed */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: #fff !important;
+  }
+
   .navbar__inner {
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 12px;
   }
-  
+
+  /* 重置桌面端的绝对定位 */
   .navbar__brand {
     position: static !important;
     transform: none;
+    margin-right: 0 !important;
   }
-  
+
   .navbar__items--right {
     position: static !important;
     transform: none;
+    gap: 4px;
   }
-  
-  .navbar__inner > .navbar__items:not(.navbar__items--right) {
-    display: none; /* 移动端隐藏中间菜单，通常 Docusaurus 会显示汉堡菜单 */
+
+  .navbar__logo {
+    height: 24px;
+  }
+
+  /* 隐藏顶部栏菜单项 + 右侧按钮，只保留汉堡和 Logo */
+  .navbar__inner > .navbar__items:not(.navbar__items--right) > .navbar__item {
+    display: none !important;
+  }
+  .navbar__items--right {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    padding-top: 52px;
+  }
+
+  /* 侧边栏外观 */
+  .navbar-sidebar {
+    background: #fff;
+  }
+
+  /* 隐藏侧边栏自带的品牌 Logo 区域 */
+  .navbar-sidebar__brand {
+    display: none !important;
+  }
+}
+
+/* 博客视频移动端 */
+@media (max-width: 768px) {
+  .blogVideo {
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  .markdown h1:first-child,
+  article header h1,
+  article header h2 {
+    font-size: 1.8rem !important;
+  }
+
+  .markdown {
+    font-size: 16px !important;
+  }
+
+  .markdown h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .markdown h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .markdown img {
+    border-radius: 8px;
+    margin: 1em 0;
   }
 }
 

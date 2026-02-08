@@ -101,6 +101,57 @@
   @media screen and (max-width: 768px) {
     .topGroupsRow {
       flex-direction: column;
-      gap: 3rem;
+      gap: 2rem;
+    }
+
+    .teamPageContainer {
+      padding: 2rem 0;
+    }
+
+    .headerSection h1 {
+      font-size: 2rem;
+    }
+
+    .headerSection p {
+      font-size: 1rem;
+    }
+
+    .groupTitle {
+      font-size: 1.2rem;
+    }
+
+    .teamGrid {
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .memberCard {
+      width: 140px;
+    }
+
+    .avatarWrapper {
+      width: 90px;
+      height: 90px;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+    }
+
+    .memberName {
+      font-size: 1rem;
+    }
+
+    .memberTitle {
+      font-size: 0.8rem;
+    }
+
+    .memberRole {
+      font-size: 0.75rem;
+    }
+
+    .teamGroup {
+      margin-bottom: 1.5rem;
     }
   }

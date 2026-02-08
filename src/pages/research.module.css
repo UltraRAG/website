@@ -464,59 +464,114 @@
    Responsive
    ============================================ */
 @media screen and (max-width: 768px) {
+  .heroSection {
+    padding: 60px 0 40px;
+  }
+
   .heroTitle {
-    font-size: 40px;
+    font-size: 36px;
   }
 
-  .modelsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .modelCardInner {
-    padding: 28px;
-  }
-
-  .sectionTitle {
-    font-size: 28px;
-  }
-
-  .paperTitle {
+  .heroSubtitle {
     font-size: 17px;
   }
 
-  .paperCard {
-    padding: 24px 0;
+  .container {
+    padding: 0 20px;
   }
 
-  .paperLinkText {
-    opacity: 1;
-    transform: translateX(0);
+  .blogSection,
+  .modelsSection,
+  .papersSection {
+    padding: 40px 0;
   }
 
-  .blogGrid {
-    grid-template-columns: 1fr;
+  .sectionTitle {
+    font-size: 26px;
+  }
+
+  .sectionDesc {
+    font-size: 15px;
+  }
+
+  .sectionHeaderRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .blogFeatured {
-    padding: 28px;
+    padding: 24px;
+    border-radius: 14px;
   }
 
   .blogFeaturedTitle {
-    font-size: 22px;
+    font-size: 20px;
     max-width: 100%;
   }
 
   .blogFeaturedSummary {
     max-width: 100%;
+    font-size: 14px;
   }
 
   .blogFeatured::after {
     display: none;
   }
 
-  .sectionHeaderRow {
-    flex-direction: column;
-    align-items: flex-start;
+  .blogGrid {
+    grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .blogCard {
+    padding: 20px;
+  }
+
+  .blogCardTitle {
+    font-size: 17px;
+  }
+
+  .blogCardSummary {
+    font-size: 14px;
+  }
+
+  .modelsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .modelCardInner {
+    padding: 24px;
+  }
+
+  .modelName {
+    font-size: 18px;
+  }
+
+  .modelDesc {
+    font-size: 14px;
+  }
+
+  .paperCard {
+    padding: 20px 0;
+  }
+
+  .paperTitle {
+    font-size: 17px;
+  }
+
+  .paperAbstract {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .paperAuthors {
+    font-size: 13px;
+  }
+
+  .paperLinkText {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

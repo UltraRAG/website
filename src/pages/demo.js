@@ -803,7 +803,7 @@ function PipelineDropdown({ pipelineIdx, onPipelineSelect }) {
   );
 }
 
-function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onShowToast, isEmpty, t }) {
+function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onShowToast, isEmpty, t, sidebarCollapsed, onSidebarToggle }) {
   const chatHistoryRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -843,6 +843,16 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
     <div className={styles.chatMain}>
       {/* View Header */}
       <header className={styles.viewHeader}>
+        {sidebarCollapsed && (
+          <button className={styles.mobileMenuBtn} onClick={onSidebarToggle} aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        )}
         <PipelineDropdown pipelineIdx={pipelineIdx} onPipelineSelect={onPipelineSelect} />
       </header>
 
@@ -983,11 +993,18 @@ export default function DemoPage() {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         activeSession={activeSession}
         sessions={sessions}
-        onSessionChange={handleSessionChange}
-        onNewChat={handleNewChat}
+        onSessionChange={(id) => { handleSessionChange(id); setSidebarCollapsed(true); }}
+        onNewChat={() => { handleNewChat(); setSidebarCollapsed(true); }}
         onShowToast={showToast}
         t={t}
       />
+      {/* 移动端遮罩层 */}
+      {!sidebarCollapsed && (
+        <div
+          className={styles.sidebarBackdrop}
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
       <ChatArea
         messages={currentMessages}
         onSendMessage={handleSendMessage}
@@ -996,6 +1013,8 @@ export default function DemoPage() {
         onShowToast={showToast}
         isEmpty={isEmpty}
         t={t}
+        sidebarCollapsed={sidebarCollapsed}
+        onSidebarToggle={() => setSidebarCollapsed(false)}
       />
       <Toast message={toastMsg} visible={toastVisible} onClose={() => setToastVisible(false)} />
     </div>
