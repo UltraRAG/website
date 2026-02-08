@@ -18,16 +18,8 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans', 'en'],
-    localeConfigs: {
-      'zh-Hans': {
-        label: '中文',
-      },
-      en: {
-        label: 'EN',
-      },
-    },
+    defaultLocale: 'en',
+    locales: ['en'],
   },
 
   presets: [
@@ -66,33 +58,37 @@ const config = {
           // ========== 中间区域菜单 (position: left，但会通过 CSS 居中) ==========
           {
             to: '/',
-            label: '首页',
+            label: 'Home',
             position: 'left',
           },
-          // Products Mega Menu（点击"研究"直接进入 /research）
+          // Products Mega Menu
           {
             type: 'custom-megaMenu',
             position: 'left',
-            label: '研究',
+            label: 'Research',
+            labelZh: '研究',
             to: '/research',
             items: [
               {
-                title: '最新动态',
+                title: 'Latest',
+                titleZh: '最新动态',
                 items: [
-                  { label: '博客', to: '/blog' },
+                  { label: 'Blog', labelZh: '博客', to: '/blog' },
                 ]
               },
               {
-                title: '模型',
+                title: 'Models',
+                titleZh: '模型',
                 items: [
                   { label: 'AgentCPM-Report', href: 'https://huggingface.co/openbmb/AgentCPM-Report', target: '_blank' },
                   { label: 'MiniCPM-Embedding-Light', href: 'https://huggingface.co/openbmb/MiniCPM-Embedding-Light', target: '_blank' },
                 ]
               },
               {
-                title: '论文',
+                title: 'Papers',
+                titleZh: '论文',
                 items: [
-                  { label: '精选论文', to: '/research#papers' },
+                  { label: 'Featured Papers', labelZh: '精选论文', to: '/research#papers' },
                 ]
               },
             ]
@@ -101,20 +97,23 @@ const config = {
           {
             type: 'custom-megaMenu',
             position: 'left',
-            label: '团队',
+            label: 'Team',
+            labelZh: '团队',
             to: '/team',
             items: [
               {
-                title: '关于我们',
+                title: 'About',
+                titleZh: '关于我们',
                 items: [
-                  { label: '团队成员', to: '/team' },
+                  { label: 'Members', labelZh: '团队成员', to: '/team' },
                 ]
               },
               {
-                title: '联系',
+                title: 'Connect',
+                titleZh: '联系',
                 items: [
-                  { label: '联系', to: '/contact' },
-                  { label: '加入我们', href: 'https://nlp.csai.tsinghua.edu.cn/job/29', target: '_blank' },
+                  { label: 'Contact', labelZh: '联系', to: '/contact' },
+                  { label: 'Join Us', labelZh: '加入我们', href: 'https://nlp.csai.tsinghua.edu.cn/job/29', target: '_blank' },
                 ]
               }
             ]
@@ -129,7 +128,7 @@ const config = {
           },
           // 语言切换按钮（最右侧）
           {
-            type: 'localeDropdown',
+            type: 'custom-languageSwitcher',
             position: 'right',
           },
         ],

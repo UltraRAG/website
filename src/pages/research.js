@@ -3,10 +3,38 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
+import { useIsZh } from '../i18n';
 import styles from './research.module.css';
 
 // --- 博客数据 ---
-const BlogsList = [
+const BLOGS_EN = [
+  {
+    title: 'UltraRAG 3.0: No More Black Boxes, Full Transparency in Reasoning',
+    summary: 'Addressing the pain point of "algorithm prototyping takes a week, but building a usable system takes months", UltraRAG 3.0 brings three core upgrades: full-chain visible reasoning, modular MCP architecture, and unified evaluation system.',
+    date: '2026.01.23',
+    authors: 'Sen Mei, Haidong Xin',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-3.0-release',
+  },
+  {
+    title: 'UltraRAG 2.1: Deep Knowledge Integration, Cross-Modal Support',
+    summary: 'Comprehensive upgrades focused on native multimodal support, automated knowledge integration and corpus construction, and unified RAG workflows for building and evaluation.',
+    date: '2025.11.11',
+    authors: 'Sen Mei, Haidong Xin',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-2.1-release',
+  },
+  {
+    title: 'UltraRAG 2.0: Minimal Code, Maximum Innovation',
+    summary: 'The first RAG framework designed with Model Context Protocol (MCP) architecture, enabling researchers to implement multi-stage reasoning systems with just YAML files.',
+    date: '2025.08.28',
+    authors: 'Sen Mei, Haidong Xin, Chunyi Peng',
+    tags: ['Release', 'UltraRAG'],
+    to: '/blog/ultrarag-2.0-release',
+  },
+];
+
+const BLOGS_ZH = [
   {
     title: 'UltraRAG 3.0：告别黑盒，推理逻辑全透明',
     summary: '针对"验证算法原型只需一周，构建可用系统却耗时数月"的痛点，UltraRAG 3.0 带来了全链路可视化推理、模块化 MCP 架构与统一评测体系三大核心升级。',
@@ -34,7 +62,22 @@ const BlogsList = [
 ];
 
 // --- 模型数据 ---
-const ModelsList = [
+const MODELS_EN = [
+  {
+    name: 'AgentCPM-Report',
+    desc: 'An intelligent Agent model for long document generation and report writing, enabling automated research report generation.',
+    tags: ['Agent', 'Long-Text Generation', 'DeepResearch'],
+    href: 'https://huggingface.co/openbmb/AgentCPM-Report',
+  },
+  {
+    name: 'MiniCPM-Embedding-Light',
+    desc: 'A lightweight and efficient text embedding model, achieving leading performance on multiple retrieval benchmarks, suitable for large-scale semantic retrieval in RAG scenarios.',
+    tags: ['Embedding', 'Retrieval'],
+    href: 'https://huggingface.co/openbmb/MiniCPM-Embedding-Light',
+  },
+];
+
+const MODELS_ZH = [
   {
     name: 'AgentCPM-Report',
     desc: '面向长文档生成与报告撰写的智能 Agent 模型，助力自动化研究报告生成。',
@@ -50,13 +93,13 @@ const ModelsList = [
 ];
 
 // --- 精选论文数据 ---
-const PapersList = [
+const PAPERS_EN = [
   {
     title: 'VisRAG: Vision-based Retrieval-Augmented Generation on Multi-modality Documents',
     authors: 'Shi Yu, Chaoyue Tang, et al.',
     date: '2025.04',
     venue: 'ICLR 2025',
-    abstract: '提出了一种“视觉优先”的检索增强生成新范式，通过将文档直接转化为视觉向量进行匹配与生成，从根本上解决了复杂排版文档在传统文本解析中的信息降级问题。',
+    abstract: 'Proposes a "vision-first" retrieval-augmented generation paradigm that fundamentally solves the information degradation problem of complex layout documents in traditional text parsing by converting documents directly into visual vectors for matching and generation.',
     href: 'https://arxiv.org/pdf/2410.10594',
   },
   {
@@ -64,7 +107,42 @@ const PapersList = [
     authors: 'Xinze Li, Sen Mei, et al.',
     date: '2025.04',
     venue: 'ICLR 2025',
-    abstract: '提出了一种基于“可微分数据奖励”的 RAG 优化新范式，通过在检索器与生成器之间建立端到端的奖励对齐机制，显著提升了模型从外部知识中提取核心信息并解决知识冲突的能力。',
+    abstract: 'Proposes a new RAG optimization paradigm based on "differentiable data rewards", significantly improving the model\'s ability to extract core information from external knowledge and resolve knowledge conflicts through end-to-end reward alignment between retriever and generator.',
+    href: 'https://arxiv.org/pdf/2410.13509',
+  },
+  {
+    title: 'RAGEval: Scenario Specific RAG Evaluation Dataset Generation Framework',
+    authors: 'Kunlun Zhu, Yifan Luo, et al.',
+    date: '2025.07',
+    venue: 'ACL 2025',
+    abstract: 'Proposes a new paradigm for automated RAG evaluation benchmark construction, enabling efficient customization of evaluation datasets for specific vertical scenarios (such as finance, law, healthcare) through Schema-based knowledge distillation and document generation.',
+    href: 'https://aclanthology.org/2025.acl-long.418.pdf',
+  },
+  {
+    title: 'DeepNote: Note-Centric Deep Retrieval-Augmented Generation',
+    authors: 'Ruobing Wang, et al.',
+    date: '2025.11',
+    venue: 'EMNLP 2025',
+    abstract: 'Proposes a "note-centric" adaptive retrieval-augmented generation paradigm that significantly improves the model\'s depth and robustness in handling complex open-domain QA tasks by introducing an iterative knowledge accumulation mechanism.',
+    href: 'https://arxiv.org/pdf/2410.08821',
+  },
+];
+
+const PAPERS_ZH = [
+  {
+    title: 'VisRAG: Vision-based Retrieval-Augmented Generation on Multi-modality Documents',
+    authors: 'Shi Yu, Chaoyue Tang, et al.',
+    date: '2025.04',
+    venue: 'ICLR 2025',
+    abstract: '提出了一种"视觉优先"的检索增强生成新范式，通过将文档直接转化为视觉向量进行匹配与生成，从根本上解决了复杂排版文档在传统文本解析中的信息降级问题。',
+    href: 'https://arxiv.org/pdf/2410.10594',
+  },
+  {
+    title: 'RAG-DDR: Optimizing Retrieval-Augmented Generation Using Differentiable Data Rewards',
+    authors: 'Xinze Li, Sen Mei, et al.',
+    date: '2025.04',
+    venue: 'ICLR 2025',
+    abstract: '提出了一种基于"可微分数据奖励"的 RAG 优化新范式，通过在检索器与生成器之间建立端到端的奖励对齐机制，显著提升了模型从外部知识中提取核心信息并解决知识冲突的能力。',
     href: 'https://arxiv.org/pdf/2410.13509',
   },
   {
@@ -80,7 +158,7 @@ const PapersList = [
     authors: 'Ruobing Wang, et al.',
     date: '2025.11',
     venue: 'EMNLP 2025',
-    abstract: '提出了一种以“笔记”为核心的自适应检索增强生成新范式，通过在检索过程中引入迭代式知识积累机制，显著提升了模型处理复杂开放域问答任务的深度与鲁棒性。',
+    abstract: '提出了一种以"笔记"为核心的自适应检索增强生成新范式，通过在检索过程中引入迭代式知识积累机制，显著提升了模型处理复杂开放域问答任务的深度与鲁棒性。',
     href: 'https://arxiv.org/pdf/2410.08821',
   },
 ];
@@ -88,27 +166,37 @@ const PapersList = [
 // --- 组件 ---
 
 function ResearchHero() {
+  const isZh = useIsZh();
   return (
     <section className={styles.heroSection}>
       <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>研究</h1>
-        <p className={styles.heroSubtitle}>了解我们的最新研究成果</p>
+        <h1 className={styles.heroTitle}>{isZh ? '研究' : 'Research'}</h1>
+        <p className={styles.heroSubtitle}>
+          {isZh ? '了解我们的最新研究成果' : 'Discover our latest research'}
+        </p>
       </div>
     </section>
   );
 }
 
 function BlogSection() {
+  const isZh = useIsZh();
+  const BlogsList = isZh ? BLOGS_ZH : BLOGS_EN;
+
   return (
     <section id="blog" className={styles.blogSection}>
       <div className={styles.container}>
         <div className={styles.sectionHeaderRow}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>博客</h2>
-            <p className={styles.sectionDesc}>跟踪 UltraRAG 开源进展与技术更新。</p>
+            <h2 className={styles.sectionTitle}>{isZh ? '博客' : 'Blog'}</h2>
+            <p className={styles.sectionDesc}>
+              {isZh
+                ? '跟踪 UltraRAG 开源进展与技术更新。'
+                : 'Follow UltraRAG open-source progress and technical updates.'}
+            </p>
           </div>
           <Link className={styles.viewAllLink} to="/blog">
-            查看全部 <span>→</span>
+            {isZh ? '查看全部' : 'View All'} <span>→</span>
           </Link>
         </div>
 
@@ -145,12 +233,19 @@ function BlogSection() {
 }
 
 function ModelsSection() {
+  const isZh = useIsZh();
+  const ModelsList = isZh ? MODELS_ZH : MODELS_EN;
+
   return (
     <section className={styles.modelsSection}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>模型</h2>
-          <p className={styles.sectionDesc}>我们开源的核心模型，为 RAG 生态提供基础能力支撑。</p>
+          <h2 className={styles.sectionTitle}>{isZh ? '模型' : 'Models'}</h2>
+          <p className={styles.sectionDesc}>
+            {isZh
+              ? '我们开源的核心模型，为 RAG 生态提供基础能力支撑。'
+              : 'Our open-source core models, providing foundational capabilities for the RAG ecosystem.'}
+          </p>
         </div>
         <div className={styles.modelsGrid}>
           {ModelsList.map((model, idx) => (
@@ -170,7 +265,7 @@ function ModelsSection() {
                   ))}
                 </div>
                 <div className={styles.modelLink}>
-                  查看模型 <span className={styles.modelArrow}>→</span>
+                  {isZh ? '查看模型' : 'View Model'} <span className={styles.modelArrow}>→</span>
                 </div>
               </div>
             </a>
@@ -182,12 +277,21 @@ function ModelsSection() {
 }
 
 function PapersSection() {
+  const isZh = useIsZh();
+  const PapersList = isZh ? PAPERS_ZH : PAPERS_EN;
+
   return (
     <section id="papers" className={styles.papersSection}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>精选论文</h2>
-          <p className={styles.sectionDesc}>我们团队在 RAG 领域的代表性研究工作。</p>
+          <h2 className={styles.sectionTitle}>
+            {isZh ? '精选论文' : 'Featured Papers'}
+          </h2>
+          <p className={styles.sectionDesc}>
+            {isZh
+              ? '我们团队在 RAG 领域的代表性研究工作。'
+              : 'Representative research work from our team in the RAG domain.'}
+          </p>
         </div>
         <div className={styles.papersList}>
           {PapersList.map((paper, idx) => (
@@ -206,7 +310,7 @@ function PapersSection() {
               <p className={styles.paperAuthors}>{paper.authors}</p>
               <p className={styles.paperAbstract}>{paper.abstract}</p>
               <div className={styles.paperLinkText}>
-                阅读更多 <span className={styles.paperArrow}>→</span>
+                {isZh ? '阅读更多' : 'Read More'} <span className={styles.paperArrow}>→</span>
               </div>
             </a>
           ))}
@@ -217,8 +321,12 @@ function PapersSection() {
 }
 
 export default function Research() {
+  const isZh = useIsZh();
   return (
-    <Layout title="研究" description="UltraRAG Research - Models and Papers">
+    <Layout
+      title={isZh ? '研究' : 'Research'}
+      description="UltraRAG Research - Models and Papers"
+    >
       <main>
         <ResearchHero />
         <BlogSection />

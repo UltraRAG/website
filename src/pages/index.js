@@ -5,11 +5,44 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
+import { useIsZh } from '../i18n';
 import styles from './index.module.css';
 
 // --- 数据 ---
 
-const FeaturesList = [
+const FEATURES_EN = [
+  {
+    title: 'Low-Code Pipeline Orchestration',
+    tag: 'Pipeline',
+    desc: 'Natively supports serial, loop, and conditional branch control structures. Developers only need to write YAML configuration files to implement complex iterative RAG logic in just dozens of lines of code.',
+    image: 'img/feature/pipeline.jpg',
+    link: 'https://ultrarag.openbmb.cn/pages/en/rag_client/pipeline',
+  },
+  {
+    title: 'Modular Packaging & Extension',
+    tag: 'Modular',
+    desc: 'Based on MCP architecture, functions are decoupled into independent Servers. New features only need to be registered as function-level Tools to seamlessly integrate into workflows, achieving extremely high reusability.',
+    image: 'img/feature/server.jpg',
+    link: 'https://ultrarag.openbmb.cn/pages/en/rag_servers/overview',
+  },
+  {
+    title: 'Unified Evaluation & Benchmarking',
+    tag: 'Benchmark',
+    desc: 'Built-in standardized evaluation process with ready-to-use mainstream research Benchmarks. Through unified metric management and baseline integration, greatly improving experimental reproducibility and comparison efficiency.',
+    image: 'img/feature/benchmark.jpg',
+    link: 'https://ultrarag.openbmb.cn/pages/en/develop_guide/dataset',
+    extraLink: { label: 'Dataset', url: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark' },
+  },
+  {
+    title: 'Interactive Prototype Generation',
+    tag: 'UI Generation',
+    desc: 'Say goodbye to tedious UI development. With just one command, Pipeline logic can be instantly transformed into an interactive conversational Web UI, shortening the distance from algorithm to demonstration.',
+    image: 'img/feature/ui.jpg',
+    link: 'https://ultrarag.openbmb.cn/pages/en/ui/start',
+  },
+];
+
+const FEATURES_ZH = [
   {
     title: '低代码编排复杂流程',
     tag: 'Pipeline',
@@ -44,6 +77,8 @@ const FeaturesList = [
 // --- 组件 ---
 
 function HeroSection() {
+  const isZh = useIsZh();
+
   return (
     <header className={styles.heroSection}>
       <div className={styles.heroContent}>
@@ -52,7 +87,10 @@ function HeroSection() {
             UltraRAG <span style={{color: '#2563eb'}}>3.0</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            拒绝"盲盒"开发，让每一行推理逻辑都看得见。<br/>
+            {isZh
+              ? <>拒绝"盲盒"开发，让每一行推理逻辑都看得见。<br/></>
+              : <>Reject the Black Box. Make Every Step Visible.<br/></>
+            }
           </p>
           
           <div className={styles.heroButtons}>
@@ -60,25 +98,25 @@ function HeroSection() {
             <Link
               className={styles.btnPrimary}
               to="/blog/ultrarag-3.0-release">
-              了解详情
+              {isZh ? '了解详情' : 'Learn More'}
             </Link>
 
-            {/* 按钮 2: 试玩 -> Demo (占位) */}
+            {/* 按钮 2: 试玩 -> Demo */}
             <Link
               className={styles.btnSecondary}
               to="/demo">
-              <span style={{marginRight: '6px'}}>▶</span> 试玩
+              <span style={{marginRight: '6px'}}>▶</span> {isZh ? '试玩' : 'Try Demo'}
             </Link>
 
             {/* 按钮 3: 教程文档 */}
             <Link
               className={styles.btnSecondary}
-              to="https://ultrarag.openbmb.cn/">
+              to={isZh ? "https://ultrarag.openbmb.cn/" : "https://ultrarag.openbmb.cn/pages/en/getting_started/introduction"}>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '6px'}}>
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
-              教程文档
+              {isZh ? '教程文档' : 'Tutorial'}
             </Link>
 
             {/* 按钮 4: Github */}
@@ -107,6 +145,9 @@ function HeroSection() {
 }
 
 function FeatureGrid() {
+  const isZh = useIsZh();
+  const FeaturesList = isZh ? FEATURES_ZH : FEATURES_EN;
+
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
 
@@ -124,9 +165,13 @@ function FeatureGrid() {
   return (
     <section className={styles.gridSection}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>核心特性</h2>
+        <h2 className={styles.sectionTitle}>
+          {isZh ? '核心特性' : 'Core Features'}
+        </h2>
         <p className={styles.sectionDesc}>
-         UltraRAG 提供一站式 RAG 开发解决方案，助力研究者和开发者高效完成从数据治理、流程编排到系统演示的开发闭环。
+          {isZh
+            ? 'UltraRAG 提供一站式 RAG 开发解决方案，助力研究者和开发者高效完成从数据治理、流程编排到系统演示的开发闭环。'
+            : 'UltraRAG is an all-in-one RAG solution, streamlining the journey from data governance and orchestration to full-scale system demonstration.'}
         </p>
       </div>
       
@@ -152,7 +197,7 @@ function FeatureGrid() {
             <p className={styles.carouselDesc}>{currentFeature.desc}</p>
             <div className={styles.carouselActions}>
               <Link className={styles.btnFeature} to={currentFeature.link}>
-                了解更多
+                {isZh ? '了解更多' : 'Learn More'}
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
@@ -175,14 +220,14 @@ function FeatureGrid() {
         <button 
           className={clsx(styles.carouselArrow, styles.arrowLeft)}
           onClick={() => setActiveIndex((current) => (current - 1 + FeaturesList.length) % FeaturesList.length)}
-          aria-label="上一个"
+          aria-label={isZh ? '上一个' : 'Previous'}
         />
 
         {/* 右箭头 */}
         <button 
           className={clsx(styles.carouselArrow, styles.arrowRight)}
           onClick={() => setActiveIndex((current) => (current + 1) % FeaturesList.length)}
-          aria-label="下一个"
+          aria-label={isZh ? '下一个' : 'Next'}
         />
 
         {/* 指示点 */}
@@ -200,39 +245,17 @@ function FeatureGrid() {
   );
 }
 
-function LogoSection() {
-  const partners = [
-    "OpenBMB", "Tsinghua NLP", "ModelScope", "HuggingFace", "vLLM"
-  ];
-
-  return (
-    <section className={styles.logoSection}>
-      <p style={{color: '#999', fontSize: '14px', fontWeight: 600, letterSpacing: '1px'}}>TRUSTED BY TEAMS AT</p>
-      <div className={styles.logoGrid}>
-        {partners.map((partner, idx) => (
-          <div key={idx} className={styles.logoItem} style={{
-            fontSize: '20px', 
-            fontWeight: 700, 
-            color: '#ccc', 
-            fontFamily: 'sans-serif',
-            cursor: 'default'
-          }}>
-            {partner}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function QuickStartSection() {
+  const isZh = useIsZh();
+
   return (
     <section className={styles.quickStartSection}>
       {/* Part 1: Quick Start Code */}
       <div className={styles.quickStartContainer}>
         <div className={styles.quickStartCode}>
           <CodeBlock language="bash">
-{`# 安装依赖
+{isZh
+  ? `# 安装依赖
 pip install uv
 uv sync
 
@@ -240,18 +263,34 @@ uv sync
 ultrarag run examples/sayhello.yaml
 
 # 启动 UI
+ultrarag show ui --admin`
+  : `# Install dependencies
+pip install uv
+uv sync
+
+# Run Pipeline
+ultrarag run examples/sayhello.yaml
+
+# Start UI
 ultrarag show ui --admin`}
           </CodeBlock>
         </div>
         <div className={styles.quickStartContent}>
-          <h2 className={styles.quickStartTitle}>快速开始</h2>
+          <h2 className={styles.quickStartTitle}>
+            {isZh ? '快速开始' : 'Quick Start'}
+          </h2>
           <p className={styles.quickStartDesc}>
-            快速了解如何基于 UltraRAG 运行一个完整的 RAG 实验。
+            {isZh
+              ? '快速了解如何基于 UltraRAG 运行一个完整的 RAG 实验。'
+              : 'Quickly learn how to run a complete RAG experiment based on UltraRAG.'}
           </p>
           <Link
             className={styles.btnPrimary}
-            to="https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start">
-            即刻上手
+            to={isZh
+              ? "https://ultrarag.openbmb.cn/pages/cn/getting_started/quick_start"
+              : "https://ultrarag.openbmb.cn/pages/en/getting_started/quick_start"
+            }>
+            {isZh ? '即刻上手' : 'Get Started'}
           </Link>
         </div>
       </div>
@@ -259,14 +298,21 @@ ultrarag show ui --admin`}
       {/* Part 2: UI Showcase */}
       <div className={styles.quickStartContainer} style={{marginTop: '100px'}}>
         <div className={styles.quickStartContent}>
-          <h2 className={styles.quickStartTitle}>可视化交互界面</h2>
+          <h2 className={styles.quickStartTitle}>
+            {isZh ? '可视化交互界面' : 'Visual Interactive Interface'}
+          </h2>
           <p className={styles.quickStartDesc}>
-           探索如何通过可视化界面，轻松完成知识库管理、RAG 流程搭建及系统演示。
+            {isZh
+              ? '探索如何通过可视化界面，轻松完成知识库管理、RAG 流程搭建及系统演示。'
+              : 'Explore how to easily manage knowledge bases, build RAG workflows, and create system demonstrations through the visual interface.'}
           </p>
           <Link
             className={styles.btnSecondary}
-            to="https://ultrarag.openbmb.cn/pages/cn/ui/start">
-            查看详解
+            to={isZh
+              ? "https://ultrarag.openbmb.cn/pages/cn/ui/start"
+              : "https://ultrarag.openbmb.cn/pages/en/ui/start"
+            }>
+            {isZh ? '查看详解' : 'View Details'}
           </Link>
         </div>
         <div className={styles.quickStartImageWrapper}>

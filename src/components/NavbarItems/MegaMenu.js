@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import clsx from 'clsx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useLanguage } from '@site/src/context/LanguageContext';
 import styles from './MegaMenu.module.css';
 
 // 简单的 SVG 箭头图标
@@ -11,7 +12,20 @@ const ChevronDown = () => (
   </svg>
 );
 
-export default function MegaMenu({ label, items, position, to: triggerTo }) {
+export default function MegaMenu({ label, labelZh, items, position, to: triggerTo }) {
+  const { lang } = useLanguage();
+  const isZh = lang === 'zh';
+  const displayLabel = isZh ? (labelZh || label) : label;
+
+  const localizedItems = items.map(column => ({
+    ...column,
+    title: isZh ? (column.titleZh || column.title) : column.title,
+    items: column.items.map(item => ({
+      ...item,
+      label: isZh ? (item.labelZh || item.label) : item.label,
+    })),
+  }));
+
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
@@ -57,7 +71,7 @@ export default function MegaMenu({ label, items, position, to: triggerTo }) {
             [styles.active]: isOpen
           })}
         >
-          {label}
+          {displayLabel}
         </Link>
       ) : (
         <div 
@@ -67,13 +81,13 @@ export default function MegaMenu({ label, items, position, to: triggerTo }) {
           role="button"
           tabIndex={0}
         >
-          {label}
+          {displayLabel}
         </div>
       )}
 
       <div className={clsx(styles.megaMenuDropdown, { [styles.show]: isOpen })}>
         <div className={styles.dropdownContent}>
-          {items.map((column, idx) => (
+          {localizedItems.map((column, idx) => (
             <div key={idx} className={styles.menuColumn}>
               {column.title && <div className={styles.columnTitle}>{column.title}</div>}
               <ul className={styles.menuList}>

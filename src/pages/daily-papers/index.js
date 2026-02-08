@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { useIsZh } from '../../i18n';
 import styles from './styles.module.css';
 import clsx from 'clsx';
 
@@ -64,6 +65,7 @@ function PaperCard({ title, link, abstract, summary }) {
 }
 
 export default function DailyPapers() {
+  const isZh = useIsZh();
   const [papersByDate, setPapersByDate] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -174,15 +176,15 @@ export default function DailyPapers() {
         {loading && (
           <div className={styles.loadingContainer}>
             <div className={styles.spinner}></div>
-            <p>Fetching latest papers from arXiv...</p>
+            <p>{isZh ? '正在从 arXiv 获取最新论文...' : 'Fetching latest papers from arXiv...'}</p>
           </div>
         )}
 
         {/* Error State */}
         {error && (
           <div className={styles.loadingContainer}>
-            <p>⚠️ Unable to load papers: {error}</p>
-            <p>Please check your network connection.</p>
+            <p>⚠️ {isZh ? '无法加载论文：' : 'Unable to load papers: '}{error}</p>
+            <p>{isZh ? '请检查您的网络连接。' : 'Please check your network connection.'}</p>
           </div>
         )}
 
@@ -214,9 +216,13 @@ export default function DailyPapers() {
             {/* Papers List */}
             <div className={styles.mainContent}>
               <header className={styles.pageHeader}>
-                <h1 className={styles.pageTitle}>RAG 每日论文</h1>
+                <h1 className={styles.pageTitle}>
+                  {isZh ? 'RAG 每日论文' : 'RAG Daily Papers'}
+                </h1>
                 <p className={styles.pageSubtitle}>
-                  了解检索增强生成领域的最新进展。
+                  {isZh
+                    ? '了解检索增强生成领域的最新进展。'
+                    : 'Stay up to date with the latest advances in Retrieval-Augmented Generation.'}
                 </p>
               </header>
 
