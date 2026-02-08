@@ -222,6 +222,71 @@
   font-size: 18px;
   color: #666;
   line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Feature card action buttons */
+.carouselActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnFeature {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background-color: #000;
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid #000;
+  white-space: nowrap;
+}
+
+.btnFeature:hover {
+  background-color: #333;
+  text-decoration: none;
+  color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btnFeature svg {
+  transition: transform 0.2s ease;
+}
+
+.btnFeature:hover svg {
+  transform: translateX(3px);
+}
+
+.btnFeatureOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #111 !important;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid #e5e5e5;
+  white-space: nowrap;
+}
+
+.btnFeatureOutline:hover {
+  border-color: #000;
+  text-decoration: none;
+  color: #000 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* 指示点 */

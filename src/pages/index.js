@@ -15,28 +15,29 @@ const FeaturesList = [
     tag: 'Pipeline',
     desc: '原生支持串行、循环与条件分支等控制结构。开发者仅需编写 YAML 配置文件，即可在数十行代码内实现复杂的迭代式 RAG 逻辑。',
     image: 'img/feature/pipeline.jpg',
-    link: '/docs/pipeline'
+    link: 'https://ultrarag.openbmb.cn/pages/cn/rag_client/pipeline',
   },
   {
-    title: '模块化扩展与复现',
+    title: '模块化封装与扩展',
     tag: 'Modular',
     desc: '基于 MCP 架构将功能解耦为独立 Server。新功能仅需以函数级 Tool 形式注册，即可无缝接入流程，实现极高的复用性。',
     image: 'img/feature/server.jpg',
-    link: '/docs/server'
+    link: 'https://ultrarag.openbmb.cn/pages/cn/rag_servers/overview',
   },
   {
     title: '统一评测与基准对比',
     tag: 'Benchmark',
     desc: '内置标准化评测流程，开箱即用主流科研 Benchmark。通过统一指标管理与基线集成，大幅提升实验的可复现性与对比效率。',
     image: 'img/feature/benchmark.jpg',
-    link: '/docs/benchmark'
+    link: 'https://ultrarag.openbmb.cn/pages/cn/develop_guide/dataset',
+    extraLink: { label: '数据集', url: 'https://modelscope.cn/datasets/UltraRAG/UltraRAG_Benchmark' },
   },
   {
     title: '交互原型快速生成',
     tag: 'UI Generation',
     desc: '告别繁琐的 UI 开发。仅需一行命令，即可将 Pipeline 逻辑瞬间转化为可交互的对话式 Web UI，缩短从算法到演示的距离。',
     image: 'img/feature/ui.jpg',
-    link: '/docs/ui'
+    link: 'https://ultrarag.openbmb.cn/pages/cn/ui/start',
   },
 ];
 
@@ -107,14 +108,16 @@ function HeroSection() {
 
 function FeatureGrid() {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
 
-  // 自动轮播
+  // 自动轮播：鼠标悬停时暂停
   React.useEffect(() => {
+    if (paused) return;
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % FeaturesList.length);
-    }, 5000); // 5秒切换一次
+    }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
 
   const currentFeature = FeaturesList[activeIndex];
 
@@ -123,11 +126,15 @@ function FeatureGrid() {
       <div className={styles.sectionHeader}>
         <h2 className={styles.sectionTitle}>核心特性</h2>
         <p className={styles.sectionDesc}>
-          UltraRAG 为研究者和开发者提供了一套完整的工具链，从数据处理、流程编排到最终的 UI 展示。
+         UltraRAG 提供一站式 RAG 开发解决方案，助力研究者和开发者高效完成从数据治理、流程编排到系统演示的开发闭环。
         </p>
       </div>
       
-      <div className={styles.carouselContainer}>
+      <div
+        className={styles.carouselContainer}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         {/* 大卡片区域 */}
         <div className={styles.carouselCard}>
           <div className={styles.carouselImageWrapper}>
@@ -143,6 +150,24 @@ function FeatureGrid() {
             <div className={styles.carouselTag}>{currentFeature.tag}</div>
             <h3 className={styles.carouselTitle}>{currentFeature.title}</h3>
             <p className={styles.carouselDesc}>{currentFeature.desc}</p>
+            <div className={styles.carouselActions}>
+              <Link className={styles.btnFeature} to={currentFeature.link}>
+                了解更多
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+              {currentFeature.extraLink && (
+                <Link className={styles.btnFeatureOutline} to={currentFeature.extraLink.url}>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                  {currentFeature.extraLink.label}
+                </Link>
+              )}
+            </div>
           </div>
         </div>
 
@@ -221,7 +246,7 @@ ultrarag show ui --admin`}
         <div className={styles.quickStartContent}>
           <h2 className={styles.quickStartTitle}>快速开始</h2>
           <p className={styles.quickStartDesc}>
-            快速了解如何基于 UltraRAG 运行一个完整的 RAG Pipeline。
+            快速了解如何基于 UltraRAG 运行一个完整的 RAG 实验。
           </p>
           <Link
             className={styles.btnPrimary}
@@ -236,7 +261,7 @@ ultrarag show ui --admin`}
         <div className={styles.quickStartContent}>
           <h2 className={styles.quickStartTitle}>可视化交互界面</h2>
           <p className={styles.quickStartDesc}>
-            内置 Web UI，支持知识库管理、RAG 流程搭建与演示。无需编写任何前端代码，让开发专注于逻辑本身。
+           探索如何通过可视化界面，轻松完成知识库管理、RAG 流程搭建及系统演示。
           </p>
           <Link
             className={styles.btnSecondary}

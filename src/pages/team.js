@@ -26,7 +26,7 @@ const TeamConfig = [
   {
     groupName: '核心贡献者',
     members: [
-      { name: '梅森', title: 'v2-v3 核心开发', role: 'TsinghuaNLP', avatarSrc: '/img/team/ms.png' },
+      { name: '梅森', title: 'v2-v3 核心开发', role: 'TsinghuaNLP', avatarSrc: '/img/team/ms.jpg' },
       { name: '辛海东', title: 'v2-v3 核心开发', role: 'NEUIR', avatarSrc: '/img/team/xhd.jpg' },
       { name: '彭淳毅', title: '2.0 核心开发', role: 'NEUIR', avatarSrc: '/img/team/pcy.jpg' },
     ]
@@ -35,8 +35,8 @@ const TeamConfig = [
     groupName: '贡献者',
     members: [
       { name: '李奕杉', title: '3.0 贡献者', role: 'OpenBMB', avatarSrc: '/img/team/lys.jpg' },
-      { name: '刘书良', title: '2.0 贡献者 & 基线实现', role: 'NEUIR', avatarSrc: '/img/team/lsl.jpg' },
       { name: '王逸轩', title: '3.0 贡献者', role: 'TsinghuaNLP', avatarSrc: '/img/team/wyx.jpg' },
+      { name: '刘书良', title: '2.0 贡献者 & 基线实现', role: 'NEUIR', avatarSrc: '/img/team/lsl.jpg' },
       { name: '伍铭妍', title: '基线实现', role: 'NEUIR', avatarSrc: '/img/team/wmy.jpg' },
     ]
   },

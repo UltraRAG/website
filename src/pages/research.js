@@ -11,7 +11,7 @@ const BlogsList = [
     title: 'UltraRAG 3.0：告别黑盒，推理逻辑全透明',
     summary: '针对"验证算法原型只需一周，构建可用系统却耗时数月"的痛点，UltraRAG 3.0 带来了全链路可视化推理、模块化 MCP 架构与统一评测体系三大核心升级。',
     date: '2026.01.23',
-    authors: '梅森, 辛海东',
+    authors: 'Sen Mei, Haidong Xin',
     tags: ['Release', 'UltraRAG'],
     to: '/blog/ultrarag-3.0-release',
   },
@@ -19,7 +19,7 @@ const BlogsList = [
     title: 'UltraRAG 2.1：纵深知识接入，横跨多模态支持',
     summary: '围绕原生多模态支持、知识接入与语料构建自动化、统一构建与评估的 RAG 工作流三大方向，进行了面向实际研究需求的全面升级。',
     date: '2025.11.11',
-    authors: '梅森, 辛海东',
+    authors: 'Sen Mei, Haidong Xin',
     tags: ['Release', 'UltraRAG'],
     to: '/blog/ultrarag-2.1-release',
   },
@@ -27,7 +27,7 @@ const BlogsList = [
     title: 'UltraRAG 2.0：代码极简化，创新最大化',
     summary: '首个基于 Model Context Protocol (MCP) 架构设计的 RAG 框架，让科研人员只需编写 YAML 文件即可实现多阶段推理系统。',
     date: '2025.08.28',
-    authors: '梅森, 辛海东, 彭淳毅',
+    authors: 'Sen Mei, Haidong Xin, Chunyi Peng',
     tags: ['Release', 'UltraRAG'],
     to: '/blog/ultrarag-2.0-release',
   },
@@ -105,7 +105,7 @@ function BlogSection() {
         <div className={styles.sectionHeaderRow}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>博客</h2>
-            <p className={styles.sectionDesc}>了解 UltraRAG 的每一次重大更新与技术思考。</p>
+            <p className={styles.sectionDesc}>跟踪 UltraRAG 开源进展与技术更新。</p>
           </div>
           <Link className={styles.viewAllLink} to="/blog">
             查看全部 <span>→</span>

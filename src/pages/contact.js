@@ -19,11 +19,9 @@ export default function Contact() {
           {/* Card 1: WeChat Community */}
           <div className={styles.card}>
             <div className={`${styles.cardIcon} ${styles.wechatIcon}`}>
-              <svg className={styles.cardIconSvg} viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M8.5 4c-3.6 0-6.5 2.3-6.5 5.2 0 1.7 1 3.2 2.6 4.1l-.6 2.1 2.4-1.1c.7.2 1.4.3 2.1.3 3.6 0 6.5-2.3 6.5-5.2S12.1 4 8.5 4zm-2 4.4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM21 13.3c0-2.4-2.6-4.4-5.7-4.4-.5 0-1 .1-1.5.2.2.5.3 1 .3 1.6 0 3.2-3.1 5.8-7 6.2.9 1.5 3 2.6 5.5 2.6.5 0 1-.1 1.5-.2l2.3 1 .5-2c1.6-.8 2.6-2.1 2.6-3.6zm-6.2 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8zm3.4 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8z"
-                  fill="currentColor"
-                />
+              <svg className={styles.cardIconSvg} viewBox="0 0 1024 1024" aria-hidden="true">
+                <path d="M690.1 377.4c5.9 0 11.8.2 17.6.5-24.4-128.7-158.3-227.1-313.4-227.1C209 150.8 57.7 284.2 57.7 443.9c0 92.7 50.3 168.6 134.3 218.3L154.8 765l117.6-58.9c42.1 16.9 92.3 25.8 134 25.8 11.1 0 22-.6 32.6-1.6-6.8-23.4-10.6-48-10.6-73.4 0-153.2 122.4-279.5 261.7-279.5zM485.2 363.5c-19.8 0-35.8-16.1-35.8-35.8s16.1-35.8 35.8-35.8c19.8 0 35.8 16.1 35.8 35.8s-16 35.8-35.8 35.8zm-199.1 0c-19.8 0-35.8-16.1-35.8-35.8s16.1-35.8 35.8-35.8 35.8 16.1 35.8 35.8-16 35.8-35.8 35.8z" fill="currentColor"/>
+                <path d="M926.8 663.4c0-139.5-134.3-252.6-284.8-252.6S357.2 523.9 357.2 663.4s134.3 252.6 284.8 252.6c33.4 0 67-8.3 100.5-16.7L834.2 949l-33.5-100.5c67-50.2 126.1-117.3 126.1-185.1zM540.6 629.3c-17.8 0-33.4-15.6-33.4-33.4s15.6-33.4 33.4-33.4 33.4 15.6 33.4 33.4-15.6 33.4-33.4 33.4zm202.4 0c-17.8 0-33.4-15.6-33.4-33.4s15.6-33.4 33.4-33.4 33.4 15.6 33.4 33.4-15.6 33.4-33.4 33.4z" fill="currentColor"/>
               </svg>
             </div>
             <h3 className={styles.cardTitle}>微信社区</h3>
@@ -44,7 +42,7 @@ export default function Contact() {
             <div className={styles.cardIcon}>💬</div>
             <h3 className={styles.cardTitle}>社区交流</h3>
             <p className={styles.cardText}>
-              加入社区交流问题、分享想法，并与其他开发者建立联系。
+              加入社区交流问题、分享想法，并与开发者联系。
             </p>
             <div className={styles.buttonGroup}>
               <Link to="https://discord.com/invite/yRFFjjJnnS" className={styles.primaryLink}>加入 Discord</Link>
@@ -70,7 +68,7 @@ export default function Contact() {
             <div className={styles.cardIcon}>✉️</div>
             <h3 className={styles.cardTitle}>邮件联系</h3>
             <p className={styles.cardText}>
-              如合作或私密事务，请直接邮件联系我们。
+            如有合作意向，欢迎随时邮件交流。
             </p>
             <div className={styles.buttonGroup}>
               <Link to="mailto:yanyk.thu@gmail.com" className={styles.secondaryLink}>
