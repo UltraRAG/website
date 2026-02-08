@@ -12,8 +12,7 @@ const DEMO_PIPELINES = [
 
 const INITIAL_SESSIONS = [
   { id: 1, title: 'UltraRAG 项目简介' },
-  { id: 2, title: 'MCP 架构详解' },
-  { id: 3, title: 'Pipeline 编排指南' },
+  { id: 2, title: 'UltraRAG 架构详解' },
 ];
 
 // Pre-filled demo conversations per session
@@ -30,9 +29,11 @@ const DEMO_CONVERSATIONS = {
         { name: 'Dense Retrieval', detail: '从知识库中检索项目文档' },
         { name: 'Response Generation', detail: '基于检索结果生成回答' },
       ],
-      content: `UltraRAG 是首个基于 **Model Context Protocol (MCP)** 架构设计的轻量级 RAG 开发框架，专为科研探索与工业原型设计打造。
+      content: `### 关于 UltraRAG
 
-它将 RAG 中的核心组件（如 Retriever、Generation 等）标准化封装为独立的 **MCP Server**，实现了基于函数级 Tool 接口的灵活扩展。配合 MCP Client 的流程调度能力，开发者能够通过 YAML 配置实现对复杂控制结构（如条件、循环等）的精确编排。
+      UltraRAG 是首个基于 **Model Context Protocol (MCP)** 架构设计的轻量级 RAG 开发框架，专为科研探索与工业原型设计打造。
+
+它将 RAG 中的核心组件（如 Retriever、Generation 等）标准化封装为独立的 **MCP Server**，实现了基于函数级 Tool 接口的灵活扩展。配合 MCP Client 的流程调度能力，开发者能够通过 YAML 配置实现对复杂控制结构（如条件、循环等）的精确编排。此外，系统支持算法逻辑向对话演示界面的无缝迁移，极大地优化了复杂 RAG 系统的开发全链路效率。
 
 ### 核心架构
 
@@ -75,9 +76,7 @@ UltraRAG 旨在为开发者提供一套**标准化、解耦且极简**的开发�
 内置标准化评测流程，开箱即用主流科研 Benchmark。通过统一指标管理与基线集成，大幅提升实验的可复现性与对比效率。
 
 ### ✨ 交互原型快速生成
-告别繁琐的 UI 开发。仅需一行命令，即可将 Pipeline 逻辑瞬间转化为可交互的对话式 Web UI，缩短从算法到演示的距离。
-
-> UltraRAG 打破了传统框架的僵局，让研究者能够高效复现与横向对比各种 RAG 方案。`,
+告别繁琐的 UI 开发。仅需一行命令，即可将 Pipeline 逻辑瞬间转化为可交互的对话式 Web UI，缩短从算法到演示的距离。`,
       sources: [
         { id: 1, title: 'Why UltraRAG - 项目简介', used: true },
         { id: 2, title: 'UltraRAG vs 传统框架对比', used: true },
@@ -102,10 +101,11 @@ UltraRAG 旨在为开发者提供一套**标准化、解耦且极简**的开发�
 每个 MCP Server 封装一项独立功能，如文档检索、向量索引、文本生成等。新功能只需以函数级 **Tool** 形式注册到 Server 中，即可无缝接入整个流程：
 
 \`\`\`python
-@server.register_tool
+@app.tool(output="query,top_k>doc_list")
 def dense_retrieve(query: str, top_k: int = 5):
     """从向量数据库中检索最相关的文档片段"""
-    return retriever.search(query, top_k=top_k)
+    ret = retriever.search(query, top_k=top_k)
+    return {"doc_list": ret}
 \`\`\`
 
 ### MCP Client — 智能调度中枢
@@ -113,6 +113,32 @@ Client 负责解析 Pipeline 配置文件，统一协调各 Server 间工具的�
 - **串行执行**：按顺序依次调用各步骤
 - **条件分支**：根据中间结果动态选择路径
 - **循环迭代**：支持多轮检索-推理的自我修正
+
+一个典型的 RAG Pipeline 配置：
+
+\`\`\`yaml examples/rag_full.yaml
+# MCP Server
+servers:
+  benchmark: servers/benchmark
+  retriever: servers/retriever
+  prompt: servers/prompt
+  generation: servers/generation
+  evaluation: servers/evaluation
+  custom: servers/custom
+
+# MCP Client Pipeline
+pipeline:
+- benchmark.get_data
+- retriever.retriever_init
+- retriever.retriever_embed
+- retriever.retriever_index
+- retriever.retriever_search
+- generation.generation_init
+- prompt.qa_rag_boxed
+- generation.generate
+- custom.output_extract_from_boxed
+- evaluation.evaluate
+\`\`\`
 
 ### 核心优势
 - **解耦性**：Server 之间完全独立，可单独开发、测试和部署
@@ -123,57 +149,6 @@ Client 负责解析 Pipeline 配置文件，统一协调各 Server 间工具的�
       sources: [
         { id: 1, title: 'MCP 架构设计文档', used: true },
         { id: 2, title: 'Server 开发指南', used: true },
-      ],
-    },
-  ],
-  3: [
-    {
-      role: 'user',
-      content: 'Pipeline 是怎么编排的？可以举个例子吗？',
-    },
-    {
-      role: 'assistant',
-      steps: [
-        { name: 'Doc Search', detail: '检索 Pipeline 编排文档' },
-        { name: 'Synthesis', detail: '整合 YAML 配置说明与示例' },
-      ],
-      content: `Pipeline 是 UltraRAG 的核心蓝图，通过 YAML 配置文件定义 RAG 流程中各个步骤及其连接关系。开发者无需编写复杂的调度代码，只需声明式地描述任务逻辑。
-
-一个典型的 RAG Pipeline 配置：
-
-\`\`\`yaml
-name: NaiveRAG
-steps:
-  - name: retrieve
-    server: retrieval_server
-    tool: dense_retrieve
-    params:
-      top_k: 5
-  - name: generate
-    server: generation_server
-    tool: chat_completion
-    input:
-      context: $retrieve.output
-\`\`\`
-
-### 支持的控制结构
-UltraRAG 原生支持复杂的流程控制：
-
-- **串行（Sequential）**：步骤按顺序依次执行，上游输出通过 \`$\` 引用传递给下游
-- **条件分支（Branch）**：根据中间结果动态选择不同的执行路径
-- **循环迭代（Loop）**：实现多轮检索-推理的自我修正逻辑
-
-### 一键生成交互 UI
-编写完 Pipeline YAML 后，只需一行命令即可将其转化为可交互的对话界面：
-
-\`\`\`bash
-ultrarag show ui --admin
-\`\`\`
-
-> Pipeline 实现了推理流程的配置化，让开发者能够在数十行 YAML 内完成复杂迭代式 RAG 逻辑的构建。`,
-      sources: [
-        { id: 1, title: 'Pipeline 编排指南', used: true },
-        { id: 2, title: 'YAML 配置参考', used: true },
       ],
     },
   ],
@@ -194,10 +169,10 @@ UltraRAG 是首个基于 **MCP（Model Context Protocol）** 架构的轻量级 
 - 由 **MCP Client** 协调 Pipeline 编排的多步推理流程
 - 基于检索到的事实生成高质量、**可溯源**的回答
 
-> 如需体验完整功能，请访问 [UltraRAG 文档](https://ultrarag.openbmb.cn) 了解本地部署方式。`,
+> 如需体验完整功能，请访问 [部署指南](https://ultrarag.openbmb.cn/pages/cn/ui/prepare) 了解本地部署方式。`,
     sources: [
       { id: 1, title: 'UltraRAG 项目简介', used: true },
-      { id: 2, title: '快速开始指南', used: true },
+      { id: 2, title: '部署指南', used: true },
     ],
   },
 ];
@@ -240,9 +215,9 @@ function Sidebar({ collapsed, onToggle, activeSession, sessions, onSessionChange
       <div className={styles.sidebarHeader}>
         <div className={styles.sidebarToggleRow}>
           {!collapsed && (
-            <a href={homeUrl} className={styles.logoLink}>
+            <button className={styles.logoLink} onClick={onNewChat} title="新建对话">
               <img src={logoUrl} alt="UltraRAG" className={styles.logoImg} />
-            </a>
+            </button>
           )}
           <button
             className={`${styles.toggleBtn} ${collapsed ? styles.toggleBtnRotated : ''}`}
@@ -300,17 +275,16 @@ function Sidebar({ collapsed, onToggle, activeSession, sessions, onSessionChange
 
       {/* Footer */}
       <div className={styles.sidebarFooter}>
-        <button className={styles.navBtn} onClick={() => onShowToast('设置功能请在本地部署后使用')}>
+        <a href={homeUrl} className={styles.navBtn} style={{ textDecoration: 'none' }}>
           <span className={styles.navIcon}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
               stroke="currentColor" width="20" height="20">
               <path strokeLinecap="round" strokeLinejoin="round"
-                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.332.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.217.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.583-.495.645-.869l.214-1.281z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
             </svg>
           </span>
-          {!collapsed && <span className={styles.navText}>设置</span>}
-        </button>
+          {!collapsed && <span className={styles.navText}>返回官网</span>}
+        </a>
       </div>
     </aside>
   );
@@ -547,10 +521,10 @@ function EmptyState({ onSuggestionClick }) {
   return (
     <div className={styles.emptyStateWrapper}>
       <div className={styles.greetingSection}>
-        <span className={styles.greetingGradient}>探索 UltraRAG</span>
-        <p className={styles.greetingSub}>基于 MCP 架构的轻量级 RAG 开发框架</p>
+        <span className={styles.greetingGradient}>今天想探索什么？
+        </span>
       </div>
-      <div className={styles.suggestionGrid}>
+      {/* <div className={styles.suggestionGrid}>
         {SUGGESTION_CHIPS.map((chip, idx) => (
           <button key={idx} className={styles.suggestionCard} onClick={() => onSuggestionClick(chip.text)}>
             <div className={styles.suggestionCardTop}>
@@ -560,7 +534,7 @@ function EmptyState({ onSuggestionClick }) {
             <span className={styles.suggestionCardSub}>{chip.sub}</span>
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -684,7 +658,7 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
             <textarea
               ref={textareaRef}
               className={styles.chatInput}
-              placeholder="向 UltraRAG 提问..."
+              placeholder="向 UltraRAG 提问"
               rows="1"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -698,7 +672,7 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                   </svg>
-                  <span>技术文档知识库</span>
+                  <span>知识库</span>
                 </button>
               </div>
               <div className={styles.rightActions}>
@@ -726,7 +700,7 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
 export default function DemoPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeSession, setActiveSession] = useState(1);
-  const [pipelineIdx, setPipelineIdx] = useState(0);
+  const [pipelineIdx, setPipelineIdx] = useState(1);
   const [conversations, setConversations] = useState(DEMO_CONVERSATIONS);
   const [sessions, setSessions] = useState(INITIAL_SESSIONS);
   const [toastMsg, setToastMsg] = useState('');

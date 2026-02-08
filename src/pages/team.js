@@ -8,15 +8,15 @@ import styles from './team.module.css';
 // 顶部并排的两组（项目负责人 & 联合发起人）
 const TopGroups = [
   {
-    groupName: '项目发起人',
+    groupName: '发起人',
     members: [
-      { name: '闫宇坤', title: '项目负责人', role: 'TsinghuaNLP', avatarSrc: '/img/team/yyk.jpg' },
+      { name: '闫宇坤', title: '总体规划与负责', role: 'TsinghuaNLP', avatarSrc: '/img/team/yyk.jpg' },
     ]
   },
   {
-    groupName: '联合发起人',
+    groupName: '联合发起',
     members: [
-      { name: '刘正皓', title: '意见指导', role: 'NEUIR', avatarSrc: '/img/team/lzh.jpg' },
+      { name: '刘正皓', title: '技术顾问', role: 'NEUIR', avatarSrc: '/img/team/lzh.jpg' },
     ]
   },
 ];
@@ -24,19 +24,19 @@ const TopGroups = [
 // 其余团队成员
 const TeamConfig = [
   {
-    groupName: '核心贡献者',
+    groupName: '项目核心',
     members: [
-      { name: '梅森', title: 'v2-v3 核心开发', role: 'TsinghuaNLP', avatarSrc: '/img/team/ms.jpg' },
-      { name: '辛海东', title: 'v2-v3 核心开发', role: 'NEUIR', avatarSrc: '/img/team/xhd.jpg' },
-      { name: '彭淳毅', title: '2.0 核心开发', role: 'NEUIR', avatarSrc: '/img/team/pcy.jpg' },
+      { name: '梅森', title: 'v2/v3 核心维护者', role: 'TsinghuaNLP', avatarSrc: '/img/team/ms.jpg' },
+      { name: '辛海东', title: 'v2/v3 核心维护者', role: 'NEUIR', avatarSrc: '/img/team/xhd.jpg' },
+      { name: '彭淳毅', title: 'v2.0 核心成员', role: 'NEUIR', avatarSrc: '/img/team/pcy.jpg' },
     ]
   },
   {
-    groupName: '贡献者',
+    groupName: '项目贡献',
     members: [
-      { name: '李奕杉', title: '3.0 贡献者', role: 'OpenBMB', avatarSrc: '/img/team/lys.jpg' },
-      { name: '王逸轩', title: '3.0 贡献者', role: 'TsinghuaNLP', avatarSrc: '/img/team/wyx.jpg' },
-      { name: '刘书良', title: '2.0 贡献者 & 基线实现', role: 'NEUIR', avatarSrc: '/img/team/lsl.jpg' },
+      { name: '李奕杉', title: 'v3.0 贡献', role: 'OpenBMB', avatarSrc: '/img/team/lys.jpg' },
+      { name: '王逸轩', title: 'v3.0 贡献', role: 'TsinghuaNLP', avatarSrc: '/img/team/wyx.jpg' },
+      { name: '刘书良', title: 'v2.0 & 基线实现', role: 'NEUIR', avatarSrc: '/img/team/lsl.jpg' },
       { name: '伍铭妍', title: '基线实现', role: 'NEUIR', avatarSrc: '/img/team/wmy.jpg' },
     ]
   },
