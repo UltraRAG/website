@@ -615,6 +615,11 @@
   font-family: inherit;
 }
 
+/* 确保 Highlight 组件的 token 不带多余的背景色 */
+.codeBlockPre span {
+  background: transparent !important;
+}
+
 /* =========================================
    Process Container  (source: .process-container)
    Glassmorphism thinking block
@@ -1084,6 +1089,19 @@
   40% {
     transform: scale(1);
   }
+}
+
+/* Streaming output cursor */
+.streamingContent > :last-child::after {
+  content: ' ▌';
+  color: #999;
+  font-weight: 300;
+  animation: cursorBlink 0.8s steps(1) infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 /* =========================================

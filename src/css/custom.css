@@ -87,17 +87,18 @@
   justify-content: center; /* 菜单项居中 */
   align-items: center;
   width: 100%; /* 占满整行，确保居中是相对于整行的 */
-  gap: 12px;
+  gap: 4px; /* 缩小 gap，间距由 padding 控制，保持一致 */
   /* 由于 Logo 已经绝对定位脱离了文档流，它不会影响 Flex 居中计算 */
 }
 
-/* 导航链接样式 */
+/* 导航链接样式 - 统一字体大小、间距 */
 .navbar__item {
   color: #333333;
   font-size: 15px;
   font-weight: 500;
   transition: color 0.2s;
   padding: 8px 16px;
+  line-height: 1;
 }
 
 .navbar__item:hover, .navbar__item--active {

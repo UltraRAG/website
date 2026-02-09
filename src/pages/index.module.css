@@ -187,6 +187,55 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.8s ease;
+  will-change: transform, opacity;
+}
+
+/* 轮播切换动画 - 向右滑入 */
+.slideInRight {
+  animation: slideInFromRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 轮播切换动画 - 向左滑入 */
+.slideInLeft {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 内容淡入上滑 */
+.fadeSlideIn {
+  animation: fadeSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .carouselCard:hover .carouselImage {
@@ -453,21 +502,66 @@
   color: #ffffff !important;
 }
 
-/* 强制所有代码内容为白色/亮色 */
+/* VSCode Dark+ 风格 Bash 语法高亮 */
 .quickStartCode :global(.token) {
-  color: #e6e6e6 !important;
+  color: #d4d4d4 !important;
 }
 
 .quickStartCode :global(.token.comment) {
-  color: #888888 !important;
+  color: #6A9955 !important;
+  font-style: italic;
 }
 
 .quickStartCode :global(.token.function) {
-  color: #61afef !important;
+  color: #DCDCAA !important;
 }
 
 .quickStartCode :global(.token.keyword) {
-  color: #c678dd !important;
+  color: #569CD6 !important;
+}
+
+.quickStartCode :global(.token.string) {
+  color: #CE9178 !important;
+}
+
+.quickStartCode :global(.token.builtin),
+.quickStartCode :global(.token.class-name) {
+  color: #4EC9B0 !important;
+}
+
+.quickStartCode :global(.token.number) {
+  color: #B5CEA8 !important;
+}
+
+.quickStartCode :global(.token.operator) {
+  color: #d4d4d4 !important;
+}
+
+.quickStartCode :global(.token.variable) {
+  color: #9CDCFE !important;
+}
+
+.quickStartCode :global(.token.punctuation) {
+  color: #d4d4d4 !important;
+}
+
+.quickStartCode :global(.token.assign-left),
+.quickStartCode :global(.token.environment) {
+  color: #9CDCFE !important;
+}
+
+.quickStartCode :global(.token.command),
+.quickStartCode :global(.token.function-name) {
+  color: #DCDCAA !important;
+}
+
+.quickStartCode :global(.token.parameter) {
+  color: #9CDCFE !important;
+}
+
+/* 隐藏复制按钮 */
+.quickStartCode :global([class*="buttonGroup"]) {
+  display: none !important;
 }
 
 .quickStartContent {

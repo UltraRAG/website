@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { Highlight, themes } from 'prism-react-renderer';
 import { useIsZh } from '../i18n';
 import styles from './demo.module.css';
 
@@ -109,7 +110,7 @@ Say goodbye to tedious UI development. With just one command, Pipeline logic can
 Each MCP Server encapsulates an independent function, such as document retrieval, vector indexing, text generation, etc. New features only need to be registered as function-level **Tools** in the Server to seamlessly integrate into the entire workflow:
 
 \`\`\`python
-@app.tool(output="query,top_k>doc_list")
+@app.tool(output="query,top_k->doc_list")
 def dense_retrieve(query: str, top_k: int = 5):
     """Retrieve the most relevant document fragments from the vector database"""
     ret = retriever.search(query, top_k=top_k)
@@ -246,7 +247,7 @@ UltraRAG 旨在为开发者提供一套**标准化、解耦且极简**的开发�
 每个 MCP Server 封装一项独立功能，如文档检索、向量索引、文本生成等。新功能只需以函数级 **Tool** 形式注册到 Server 中，即可无缝接入整个流程：
 
 \`\`\`python
-@app.tool(output="query,top_k>doc_list")
+@app.tool(output="query,top_k->doc_list")
 def dense_retrieve(query: str, top_k: int = 5):
     """从向量数据库中检索最相关的文档片段"""
     ret = retriever.search(query, top_k=top_k)
@@ -586,7 +587,8 @@ function parseMarkdown(content, t) {
 
     // Code block
     if (line.startsWith('```')) {
-      const lang = line.slice(3).trim();
+      const langLine = line.slice(3).trim();
+      const lang = langLine.split(/\s+/)[0] || 'text'; // 提取语言名（忽略文件名等额外文本）
       const codeLines = [];
       i++;
       while (i < lines.length && !lines[i].startsWith('```')) {
@@ -594,13 +596,13 @@ function parseMarkdown(content, t) {
         i++;
       }
       i++; // skip closing ```
+      const codeStr = codeLines.join('\n');
       elements.push(
         <div key={key++} className={styles.codeBlockWrapper}>
           <div className={styles.codeBlockHeader}>
-            <span className={styles.codeBlockLang}>{lang || 'text'}</span>
+            <span className={styles.codeBlockLang}>{lang}</span>
             <button className={styles.codeBlockCopy} onClick={(e) => {
-              const code = codeLines.join('\n');
-              navigator.clipboard.writeText(code).then(() => {
+              navigator.clipboard.writeText(codeStr).then(() => {
                 e.currentTarget.classList.add(styles.copied);
                 setTimeout(() => e.currentTarget.classList.remove(styles.copied), 2000);
               });
@@ -613,9 +615,21 @@ function parseMarkdown(content, t) {
               <span>{t.copy}</span>
             </button>
           </div>
-          <pre className={styles.codeBlockPre}>
-            <code>{codeLines.join('\n')}</code>
-          </pre>
+          <Highlight code={codeStr} language={lang} theme={themes.github}>
+            {({ tokens, getTokenProps }) => (
+              <pre className={styles.codeBlockPre}>
+                <code>
+                  {tokens.map((line, lineIdx) => (
+                    <div key={lineIdx}>
+                      {line.map((token, tokenIdx) => (
+                        <span key={tokenIdx} {...getTokenProps({ token })} />
+                      ))}
+                    </div>
+                  ))}
+                </code>
+              </pre>
+            )}
+          </Highlight>
         </div>
       );
       continue;
@@ -803,17 +817,16 @@ function PipelineDropdown({ pipelineIdx, onPipelineSelect }) {
   );
 }
 
-function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onShowToast, isEmpty, t, sidebarCollapsed, onSidebarToggle }) {
+function ChatArea({ messages, streamingMessage, isProcessing, onSendMessage, pipelineIdx, onPipelineSelect, onShowToast, isEmpty, t, sidebarCollapsed, onSidebarToggle }) {
   const chatHistoryRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const textareaRef = useRef(null);
 
   useEffect(() => {
     if (chatHistoryRef.current) {
       chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
     }
-  }, [messages, isTyping]);
+  }, [messages, streamingMessage]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -825,12 +838,10 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
 
   const handleSend = useCallback((text) => {
     const msg = text || inputValue.trim();
-    if (!msg || isTyping) return;
+    if (!msg || isProcessing) return;
     setInputValue('');
-    setIsTyping(true);
     onSendMessage(msg);
-    setTimeout(() => setIsTyping(false), 1500);
-  }, [inputValue, isTyping, onSendMessage]);
+  }, [inputValue, isProcessing, onSendMessage]);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -859,7 +870,7 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
       {/* Chat Container */}
       <div className={`${styles.chatContainer} ${isEmpty ? styles.chatContainerEmpty : ''}`}>
         <div className={styles.chatHistory} ref={chatHistoryRef}>
-          {isEmpty ? (
+          {isEmpty && !streamingMessage ? (
             <EmptyState
               onSuggestionClick={(text) => handleSend(text)}
               t={t}
@@ -870,12 +881,20 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
               {messages.map((msg, idx) => (
                 <MessageBubble key={idx} message={msg} t={t} />
               ))}
-              {isTyping && (
+              {streamingMessage && streamingMessage.isThinking && (
                 <div className={`${styles.chatBubble} ${styles.chatBubbleAssistant}`}>
                   <div className={styles.aiThinking}>
                     <span className={styles.aiThinkingDot}></span>
                     <span className={styles.aiThinkingDot}></span>
                     <span className={styles.aiThinkingDot}></span>
+                  </div>
+                </div>
+              )}
+              {streamingMessage && streamingMessage.isStreaming && (
+                <div className={`${styles.chatBubble} ${styles.chatBubbleAssistant}`}>
+                  {streamingMessage.steps && <ProcessContainer steps={streamingMessage.steps} t={t} />}
+                  <div className={`${styles.msgContent} ${styles.streamingContent}`}>
+                    {parseMarkdown(streamingMessage.content, t)}
                   </div>
                 </div>
               )}
@@ -910,7 +929,7 @@ function ChatArea({ messages, onSendMessage, pipelineIdx, onPipelineSelect, onSh
                 <button
                   className={styles.btnSend}
                   onClick={() => handleSend()}
-                  disabled={isTyping || !inputValue.trim()}
+                  disabled={isProcessing || !inputValue.trim()}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -940,6 +959,9 @@ export default function DemoPage() {
   const [sessions, setSessions] = useState(INITIAL_SESSIONS[lang]);
   const [toastMsg, setToastMsg] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
+  const [streamingMsg, setStreamingMsg] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const streamIntervalRef = useRef(null);
 
   const currentMessages = conversations[activeSession] || [];
   const isEmpty = currentMessages.length === 0;
@@ -950,16 +972,32 @@ export default function DemoPage() {
   }, []);
 
   const handleSessionChange = useCallback((sessionId) => {
+    // Cancel any ongoing streaming when switching sessions
+    if (streamIntervalRef.current) {
+      clearInterval(streamIntervalRef.current);
+      streamIntervalRef.current = null;
+    }
+    setStreamingMsg(null);
+    setIsProcessing(false);
     setActiveSession(sessionId);
   }, []);
 
   const handleNewChat = useCallback(() => {
+    // If current conversation is empty, do nothing
+    if (isEmpty) return;
+    // Cancel any ongoing streaming
+    if (streamIntervalRef.current) {
+      clearInterval(streamIntervalRef.current);
+      streamIntervalRef.current = null;
+    }
+    setStreamingMsg(null);
+    setIsProcessing(false);
     const newId = Date.now();
     setConversations((prev) => ({ ...prev, [newId]: [] }));
     setSessions((prev) => [{ id: newId, title: t.newChatTitle }, ...prev]);
     setActiveSession(newId);
     showToast(t.toastNewChat);
-  }, [showToast, t]);
+  }, [isEmpty, showToast, t]);
 
   const handlePipelineSelect = useCallback((idx) => {
     setPipelineIdx(idx);
@@ -967,23 +1005,51 @@ export default function DemoPage() {
   }, [showToast, t]);
 
   const handleSendMessage = useCallback((text) => {
+    const currentSession = activeSession;
+
     setConversations((prev) => ({
       ...prev,
-      [activeSession]: [...(prev[activeSession] || []), { role: 'user', content: text }],
+      [currentSession]: [...(prev[currentSession] || []), { role: 'user', content: text }],
     }));
     // Update session title if it's a new chat
     setSessions((prev) => prev.map(s =>
-      s.id === activeSession && s.title === t.newChatTitle
+      s.id === currentSession && s.title === t.newChatTitle
         ? { ...s, title: text.slice(0, 20) + (text.length > 20 ? '...' : '') }
         : s
     ));
+
+    setIsProcessing(true);
+    setStreamingMsg({ role: 'assistant', isThinking: true });
+
+    // After brief thinking phase, start streaming
     setTimeout(() => {
       const canned = CANNED_RESPONSES[lang][0];
-      setConversations((prev) => ({
-        ...prev,
-        [activeSession]: [...(prev[activeSession] || []), { role: 'assistant', ...canned }],
-      }));
-    }, 1500);
+      const fullContent = canned.content;
+      let idx = 0;
+
+      setStreamingMsg({
+        role: 'assistant',
+        steps: canned.steps,
+        content: '',
+        isStreaming: true,
+      });
+
+      streamIntervalRef.current = setInterval(() => {
+        idx += 3;
+        if (idx >= fullContent.length) {
+          clearInterval(streamIntervalRef.current);
+          streamIntervalRef.current = null;
+          setStreamingMsg(null);
+          setIsProcessing(false);
+          setConversations((prev) => ({
+            ...prev,
+            [currentSession]: [...(prev[currentSession] || []), { role: 'assistant', ...canned }],
+          }));
+        } else {
+          setStreamingMsg(prev => prev ? { ...prev, content: fullContent.slice(0, idx) } : null);
+        }
+      }, 18);
+    }, 800);
   }, [activeSession, lang, t]);
 
   return (
@@ -993,8 +1059,8 @@ export default function DemoPage() {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
         activeSession={activeSession}
         sessions={sessions}
-        onSessionChange={(id) => { handleSessionChange(id); setSidebarCollapsed(true); }}
-        onNewChat={() => { handleNewChat(); setSidebarCollapsed(true); }}
+        onSessionChange={handleSessionChange}
+        onNewChat={handleNewChat}
         onShowToast={showToast}
         t={t}
       />
@@ -1007,6 +1073,8 @@ export default function DemoPage() {
       )}
       <ChatArea
         messages={currentMessages}
+        streamingMessage={streamingMsg}
+        isProcessing={isProcessing}
         onSendMessage={handleSendMessage}
         pipelineIdx={pipelineIdx}
         onPipelineSelect={handlePipelineSelect}

@@ -1,18 +1,19 @@
-/* 导航栏项容器 */
+/* 导航栏项容器 - 清除 navbar__item 的 padding，避免双重 padding */
 .megaMenuContainer {
   position: static !important;
   height: 100%;
   display: flex;
   align-items: center;
+  padding: 0 !important;
 }
 
 .megaMenuTrigger {
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  color: #555555; /* 深色文字适配亮色导航栏 */
+  color: #333333; /* 深色文字适配亮色导航栏，与 HomeLink 一致 */
   transition: color 0.2s;
-  padding: 0 16px;
+  padding: 8px 16px;
   height: 100%;
   display: flex;
   align-items: center;

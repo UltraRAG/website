@@ -150,17 +150,40 @@ function FeatureGrid() {
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
+  const [slideDirection, setSlideDirection] = React.useState('right'); // 'left' | 'right'
+  const [animKey, setAnimKey] = React.useState(0); // 用于触发重新动画
 
   // 自动轮播：鼠标悬停时暂停
   React.useEffect(() => {
     if (paused) return;
     const interval = setInterval(() => {
+      setSlideDirection('right');
+      setAnimKey(k => k + 1);
       setActiveIndex((current) => (current + 1) % FeaturesList.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [paused]);
 
+  const goTo = (idx) => {
+    setSlideDirection(idx > activeIndex ? 'right' : 'left');
+    setAnimKey(k => k + 1);
+    setActiveIndex(idx);
+  };
+
+  const goPrev = () => {
+    setSlideDirection('left');
+    setAnimKey(k => k + 1);
+    setActiveIndex((current) => (current - 1 + FeaturesList.length) % FeaturesList.length);
+  };
+
+  const goNext = () => {
+    setSlideDirection('right');
+    setAnimKey(k => k + 1);
+    setActiveIndex((current) => (current + 1) % FeaturesList.length);
+  };
+
   const currentFeature = FeaturesList[activeIndex];
+  const slideClass = slideDirection === 'right' ? styles.slideInRight : styles.slideInLeft;
 
   return (
     <section className={styles.gridSection}>
@@ -184,14 +207,13 @@ function FeatureGrid() {
         <div className={styles.carouselCard}>
           <div className={styles.carouselImageWrapper}>
             <img 
-              key={activeIndex} // key 变化触发淡入动画
+              key={`img-${animKey}`}
               src={useBaseUrl(currentFeature.image)} 
-              className={styles.carouselImage} 
+              className={clsx(styles.carouselImage, slideClass)} 
               alt={currentFeature.title}
-              style={{animation: 'fadeIn 0.5s'}} 
             />
           </div>
-          <div className={styles.carouselContent}>
+          <div key={`content-${animKey}`} className={clsx(styles.carouselContent, styles.fadeSlideIn)}>
             <div className={styles.carouselTag}>{currentFeature.tag}</div>
             <h3 className={styles.carouselTitle}>{currentFeature.title}</h3>
             <p className={styles.carouselDesc}>{currentFeature.desc}</p>
@@ -219,14 +241,14 @@ function FeatureGrid() {
         {/* 左箭头 */}
         <button 
           className={clsx(styles.carouselArrow, styles.arrowLeft)}
-          onClick={() => setActiveIndex((current) => (current - 1 + FeaturesList.length) % FeaturesList.length)}
+          onClick={goPrev}
           aria-label={isZh ? '上一个' : 'Previous'}
         />
 
         {/* 右箭头 */}
         <button 
           className={clsx(styles.carouselArrow, styles.arrowRight)}
-          onClick={() => setActiveIndex((current) => (current + 1) % FeaturesList.length)}
+          onClick={goNext}
           aria-label={isZh ? '下一个' : 'Next'}
         />
 
@@ -236,7 +258,7 @@ function FeatureGrid() {
             <div 
               key={idx}
               className={clsx(styles.dot, idx === activeIndex && styles.active)}
-              onClick={() => setActiveIndex(idx)}
+              onClick={() => goTo(idx)}
             />
           ))}
         </div>
@@ -253,7 +275,7 @@ function QuickStartSection() {
       {/* Part 1: Quick Start Code */}
       <div className={styles.quickStartContainer}>
         <div className={styles.quickStartCode}>
-          <CodeBlock language="bash">
+          <CodeBlock language="shell">
 {isZh
   ? `# 安装依赖
 pip install uv
