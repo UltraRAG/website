@@ -57,8 +57,10 @@ const config = {
         items: [
           // ========== 中间区域菜单 (position: left，但会通过 CSS 居中) ==========
           {
+            type: 'custom-homeLink',
             to: '/',
             label: 'Home',
+            labelZh: '首页',
             position: 'left',
           },
           // Products Mega Menu
