@@ -61,8 +61,8 @@
 <!-- -->
 <video controls="" preload="metadata" class="blogVideo"><source src="/assets/medias/en_05-0a457b9cd391c2f01f27025b6d996e0c.mp4" type="video/mp4"></video>
 ]]></content:encoded>
-            <category>release</category>
-            <category>ultrarag</category>
+            <category>Release</category>
+            <category>UltraRAG</category>
         </item>
         <item>
             <title><![CDATA[UltraRAG 2.1: Deep Knowledge Integration, Cross-Modal Support]]></title>
@@ -84,8 +84,8 @@
 </blockquote><p>These questions are frustrations that almost every RAG researcher has experienced. Existing frameworks often provide fragmented and incompatible support for retrieval, model integration, and evaluation, forcing researchers to repeatedly switch between different tools, with every modification potentially triggering a rebuild of the entire experimental chain. UltraRAG 2.1's goal is to make complex workflows clear and unified again.</p><p>At the retrieval level, the framework supports sparse, dense, hybrid, and multimodal retrieval, compatible with multiple backend engines including Infinity, Sentence-Transformers, and OpenAI. Researchers can freely combine retrieval strategies and models for flexible pipeline design. For model generation, UltraRAG 2.1 simultaneously supports vLLM offline inference and Hugging Face local debugging, while maintaining full compatibility with the OpenAI interface, making model switching and deployment require no code changes. For evaluation, UltraRAG builds a unified Evaluation Server that can compute metrics like ACC and ROUGE for generated results, and supports TREC evaluation and significance analysis for retrieval results. Combined with the visual Case Study UI, researchers can intuitively compare the performance of different models and strategies, making "debugging" truly become "understanding."</p><p>Furthermore, UltraRAG achieves full-chain integration from data import to retrieval, generation, and evaluation through a YAML configuration-driven workflow mechanism. Researchers only need to write minimal configuration files to quickly define and reproduce experimental workflows.</p>
 <!-- -->
 <p><img decoding="async" loading="lazy" alt="UltraRAG 2.1 图示 2" src="https://ultrarag.github.io/assets/images/2-453881bcd715e8465f30dd34dd93c6c4.png" width="1280" height="791" class="img_ev3q"></p>]]></content:encoded>
-            <category>release</category>
-            <category>ultrarag</category>
+            <category>Release</category>
+            <category>UltraRAG</category>
         </item>
         <item>
             <title><![CDATA[UltraRAG 2.0: Minimal Code, Maximum Innovation]]></title>
@@ -114,8 +114,8 @@
 <p><img decoding="async" loading="lazy" alt="UltraRAG 2.0 图示 3" src="https://ultrarag.github.io/assets/images/3-79009f3c3cabc302d5d1ba9aa17d20bc.png" width="1280" height="302" class="img_ev3q"></p>
 <p>The development of complex RAG reasoning frameworks is significantly challenging, <strong>and the reason UltraRAG 2.0 can support complex system construction under low-code conditions lies in its underlying native support for multi-structure Pipeline flow control</strong>. Whether serial, loop, or conditional branch, all control logic can be defined and scheduled at the YAML level, covering various process expression methods required by complex reasoning tasks. During actual execution, reasoning process scheduling is performed by the built-in Client, whose logic is entirely described by external Pipeline YAML scripts written by users, achieving decoupling from the underlying implementation. Developers can invoke instructions like loop and step like programming language keywords, rapidly building multi-stage reasoning pipelines in a declarative manner.</p><p>By deeply integrating MCP architecture with native process control, UltraRAG 2.0 makes building complex RAG systems as natural and efficient as "orchestrating workflows." Additionally, the framework includes <strong>17 mainstream benchmark tasks and multiple high-quality baselines</strong>, combined with a unified evaluation system and knowledge base support, further improving system development efficiency and experimental reproducibility.</p>
 ]]></content:encoded>
-            <category>release</category>
-            <category>ultrarag</category>
+            <category>Release</category>
+            <category>UltraRAG</category>
         </item>
     </channel>
 </rss>

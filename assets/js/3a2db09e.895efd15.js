@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkwebsite=globalThis.webpackChunkwebsite||[]).push([[121],{8070(e){e.exports=JSON.parse('{"tags":[{"label":"release","permalink":"/blog/tags/release","count":3},{"label":"ultrarag","permalink":"/blog/tags/ultrarag","count":3}]}')}}]);

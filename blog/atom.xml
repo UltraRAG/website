@@ -68,8 +68,8 @@
             <name>Haidong Xin</name>
             <uri>https://xinhaidong.top/</uri>
         </author>
-        <category label="release" term="release"/>
-        <category label="ultrarag" term="ultrarag"/>
+        <category label="Release" term="Release"/>
+        <category label="UltraRAG" term="UltraRAG"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[UltraRAG 2.1: Deep Knowledge Integration, Cross-Modal Support]]></title>
@@ -99,8 +99,8 @@
             <name>Haidong Xin</name>
             <uri>https://xinhaidong.top/</uri>
         </author>
-        <category label="release" term="release"/>
-        <category label="ultrarag" term="ultrarag"/>
+        <category label="Release" term="Release"/>
+        <category label="UltraRAG" term="UltraRAG"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[UltraRAG 2.0: Minimal Code, Maximum Innovation]]></title>
@@ -140,7 +140,7 @@
         <author>
             <name>Chunyi Peng</name>
         </author>
-        <category label="release" term="release"/>
-        <category label="ultrarag" term="ultrarag"/>
+        <category label="Release" term="Release"/>
+        <category label="UltraRAG" term="UltraRAG"/>
     </entry>
 </feed>

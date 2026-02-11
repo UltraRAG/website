@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkwebsite=globalThis.webpackChunkwebsite||[]).push([[121],{8070(e){e.exports=JSON.parse('{"tags":[{"label":"Release","permalink":"/blog/tags/release","description":"UltraRAG release announcements","count":3},{"label":"UltraRAG","permalink":"/blog/tags/ultrarag","description":"UltraRAG related posts","count":3}]}')}}]);
