@@ -31,6 +31,9 @@ const config = {
         blog: {
           showReadingTime: true,
         },
+        gtag: {
+          trackingID: 'G-R2RNP2SFER',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },

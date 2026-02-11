@@ -17,3 +17,11 @@ hola:
   label: Hola
   permalink: /hola
   description: Hola tag description
+
+release:
+  label: Release
+  description: UltraRAG release announcements
+
+ultrarag:
+  label: UltraRAG
+  description: UltraRAG related posts
